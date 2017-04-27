@@ -1,0 +1,3 @@
+verilog work "apb_modul.v"
+verilog work "apb_test.v"
+verilog work "D:/Programs/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"
