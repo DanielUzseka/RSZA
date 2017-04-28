@@ -8,9 +8,7 @@ Analyzing Verilog file "D:/Documents/GitHub/RSZA/project/mod_top.v" into library
 Analyzing Verilog file "D:/Documents/GitHub/RSZA/project/tb_top.v" into library work
 Analyzing Verilog file "D:/Programs/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
 Starting static elaboration
-WARNING:HDLCompiler:189 - "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 40: Size mismatch in connection of port <addr>. Formal port size is 8-bit while actual signal size is 32-bit.
-WARNING:HDLCompiler:189 - "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 41: Size mismatch in connection of port <pwdata>. Formal port size is 8-bit while actual signal size is 32-bit.
-WARNING:HDLCompiler:189 - "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 42: Size mismatch in connection of port <prdata>. Formal port size is 8-bit while actual signal size is 32-bit.
+WARNING:HDLCompiler:189 - "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 52: Size mismatch in connection of port <prdata>. Formal port size is 33-bit while actual signal size is 32-bit.
 Completed static elaboration
 Compiling module apb_mod
 Compiling module mod_top
@@ -20,5 +18,5 @@ Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
 Compiled 4 Verilog Units
 Built simulation executable D:/Documents/GitHub/RSZA/project/tb_top_isim_beh.exe
-Fuse Memory Usage: 27576 KB
-Fuse CPU Usage: 436 ms
+Fuse Memory Usage: 27616 KB
+Fuse CPU Usage: 358 ms

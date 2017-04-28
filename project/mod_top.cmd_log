@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "D:/Documents/GitHub/RSZA/project/mod_top.xst" -ofn "D:/Documents/GitHub/RSZA/project/mod_top.syr" 

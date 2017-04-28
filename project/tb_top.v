@@ -22,19 +22,22 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module tb_top;
-
+module tb_top
+#(
+  addrWidth = 8,
+  dataWidth = 32
+);
 	// Inputs
 	reg PCLK;
 	reg PRESETn;
-	reg [31:0] PADDR;
+	reg [addrWidth-1:0] PADDR;
 	reg PSELx;
 	reg PENABLE;
 	reg PWRITE;
-	reg [31:0] PWDATA;
+	reg [dataWidth-1:0] PWDATA;
 
 	// Outputs
-	wire [31:0] PRDATA;
+	wire [dataWidth-1:0] PRDATA;
 
 	// Instantiate the Unit Under Test (UUT)
 	mod_top uut (
@@ -67,9 +70,9 @@ module tb_top;
 		#10 PRESETn = 1;
 		#150 PRESETn = 0;
 		
-		// 6-os cimbe 4 beírása
-		#10 PADDR = 6;
-		#10 PWDATA = 4;
+		// 1-es (resetbit) cimbe 1 beírása
+		#10 PADDR = 1;
+		#10 PWDATA = 1;
 		#10 PWRITE = 1;
 		#10 PSELx = 1;
 		#10 PENABLE = 1;		
@@ -80,7 +83,22 @@ module tb_top;
 		#10 PENABLE = 0;
 		#10 PSELx = 0;
 		
-		#100
+		#40
+		
+		//
+		// 4-es (per_data) cimbe 144 beírása
+		#10 PADDR = 4;
+		#10 PWDATA = 144;
+		#10 PSELx = 1;
+		#10 PENABLE = 1;
+
+		#40
+		
+		//to idle
+		#10 PENABLE = 0;
+		#10 PSELx = 0;
+		
+		#40
 		
 		//kilvasas
 		#10 PWRITE = 0;

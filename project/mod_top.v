@@ -18,21 +18,31 @@
 // Additional Comments:
 //
 //////////////////////////////////////////////////////////////////////////////////
-module mod_top(
+module mod_top
+#(
+  addrWidth = 8,
+  dataWidth = 32
+)
+(
 	input			PCLK,      // The rising edge of PCLK is used to time all transfers on the APB.
    input			PRESETn,   // The APB bus reset signal is active LOW and this signal will normally be connected directly to the system bus reset signal.
-	input 	[31:0]	PADDR,     // This is the APB address bus, which may be up to 32-bits wide and is driven by the peripheral bus bridge unit.
+	input 	[addrWidth-1:0]	PADDR,     // This is the APB address bus, which may be up to 32-bits wide and is driven by the peripheral bus bridge unit.
 	input 			PSELx,     // A signal from the secondary decoder, within the peripheral bus bridge unit, to each peripheral bus slave x. This signal indicates that the slave device is selected and a data transfer is required. There is a PSELx signal for each bus slave.
 	input 			PENABLE,   // This strobe signal is used to time all accesses on the peripheral bus. The enable signal is used to indicate the second cycle of an APB transfer. The rising edge of PENABLE occurs in the middle of the APB transfer.
 	input 			PWRITE,    // When HIGH this signal indicates an APB write access and when LOW a read access.
-	output	[31:0]	PRDATA,    // The read data bus is driven by the selected slave during read cycles (when PWRITE is LOW). The read data bus can be up to 32-bits wide.
-	input 	[31:0] 	PWDATA     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
+	output	[dataWidth-1:0]	PRDATA,    // The read data bus is driven by the selected slave during read cycles (when PWRITE is LOW). The read data bus can be up to 32-bits wide.
+	input 	[dataWidth-1:0] 	PWDATA     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
 );
 
 // apb_mod
 
 // Outputs
-	wire [31:0] prdata;
+	wire [dataWidth-1:0] prdata;
+	wire startbit;
+	wire resetbit;
+	wire it_enable;
+	wire [dataWidth-1:0] per_addr; //azert datawith nem pedig addrwith mert ez az i2c periferiaira vonatkozik
+	wire [dataWidth-1:0] per_data;
 	
 apb_mod amp_instance (
     .clk(PCLK), 
@@ -42,7 +52,12 @@ apb_mod amp_instance (
     .prdata(PRDATA), 
     .pwrite(PWRITE), 
     .psel(PSELx), 
-    .penable(PENABLE)
+    .penable(PENABLE),
+    .startbit(startbit), 
+    .resetbit(resetbit), 
+    .it_enable(it_enable), 
+    .per_addr(per_addr), 
+    .per_data(per_data)
     );
 
 /*reg [31:0] cntr;

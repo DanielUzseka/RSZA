@@ -10,7 +10,12 @@ apb_mod instance_name (
     .prdata(prdata), 
     .pwrite(pwrite), 
     .psel(psel), 
-    .penable(penable)
+    .penable(penable), 
+    .startbit(startbit), 
+    .resetbit(resetbit), 
+    .it_enable(it_enable), 
+    .per_addr(per_addr), 
+    .per_data(per_data)
     );
 
 

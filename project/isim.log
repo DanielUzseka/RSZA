@@ -5,272 +5,166 @@ WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
 WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
 This is a Lite version of ISim.
-WARNING: File "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 24.  For instance uut/amp_instance/, width 8 of formal port addr is not equal to width 32 of actual signal PADDR.
-WARNING: File "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 29.  For instance uut/amp_instance/, width 8 of formal port pwdata is not equal to width 32 of actual signal PWDATA.
-WARNING: File "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 28.  For instance uut/amp_instance/, width 8 of formal port prdata is not equal to width 32 of actual signal PRDATA.
+WARNING: File "D:/Documents/GitHub/RSZA/project/mod_top.v" Line 33.  For instance uut/amp_instance/, width 33 of formal port prdata is not equal to width 32 of actual signal PRDATA.
 Time resolution is 1 ps
 # onerror resume
 # wave add /
 # run 1000 ns
 Simulator is doing circuit initialization process.
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
 Finished circuit initialization process.
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 1
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 3
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 3
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 1
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 2
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 2
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 2
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   4
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 1
+it_enable: 0
+per_addr:          0
+per_data:        144
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------
-Status is: 0
-Mem           0:   0
-Mem           1:   0
-Mem           2:   0
-Mem           3:   0
-Mem           4:   0
-Mem           5:   0
-Mem           6:   0
-Mem           7:   0
+startbit: 0
+resetbit: 0
+it_enable: 0
+per_addr:          0
+per_data:          0
 ------------------------

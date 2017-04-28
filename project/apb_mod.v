@@ -18,15 +18,25 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module apb_mod(
+module apb_mod
+#(
+  addrWidth = 8,
+  dataWidth = 32
+)
+(
    input clk,
     input reset,
-    input [7:0] addr,
-    input [7:0] pwdata,
-    output reg [7:0] prdata,
+    input [addrWidth-1:0] addr,
+    input [dataWidth-1:0] pwdata,
+    output reg [dataWidth:0] prdata,
     input pwrite,
     input psel,
-    input penable
+    input penable,
+	 output reg startbit,
+	 output reg resetbit,
+	 output reg it_enable,
+	 output reg [dataWidth-1:0]per_addr,
+	 output reg [dataWidth-1:0]per_data
     );
 
 /*reg [7:0] clk_counter;
@@ -35,9 +45,9 @@ initial clk_counter = 0;*/
 reg [1:0] apb_status;
 integer i;
 
-reg [7:0] mem [7:0];
+reg [dataWidth-1:0] mem [addrWidth-1:0];
 initial begin
-   for (i=0; i<=7; i=i+1) begin
+   for (i=0; i<=addrWidth; i=i+1) begin
       mem[i] = 0;
    end
 end
@@ -49,7 +59,7 @@ always @ (posedge clk or negedge reset) begin
 	if (reset == 1) begin
 		apb_status = 0;
 		prdata <= 0;
-		for (i=0; i<=7; i=i+1) begin
+		for (i=0; i<=addrWidth; i=i+1) begin
 			mem[i] = 0;
 		end
 	end
@@ -70,13 +80,24 @@ always @ (posedge clk or negedge reset) begin
 	else if (apb_status == 3)
 		mem[addr] = pwdata;
 	
-	
+	startbit = mem[0];
+	resetbit = mem[1];
+	it_enable = mem[2];
+	per_addr = mem[3];
+	per_data = mem[4];
 
-	$display("Status is: %d", apb_status);
+/*	$display("Status is: %d", apb_status);
 	//$display("int: %d", addr_int);
 
-	for (i=0; i<8; i=i+1)
+	for (i=0; i<addrWidth; i=i+1)
 		$display("Mem %d: %d",i,mem[i]);	
+	$display("------------------------");*/
+	
+	$display("startbit: %d",startbit);
+	$display("resetbit: %d",resetbit);	
+	$display("it_enable: %d",it_enable);	
+	$display("per_addr: %d",per_addr);	
+	$display("per_data: %d",per_data);	
 	$display("------------------------");
 
 end

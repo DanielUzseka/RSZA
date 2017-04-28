@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="error" file="HDLCompilers" num="26" delta="new" >&quot;<arg fmt="%s" index="1">apb_mod.v</arg>&quot; line <arg fmt="%d" index="2">23</arg> <arg fmt="%s" index="3">expecting &apos;parameter&apos;, found &apos;addrWidth&apos;</arg>
+</msg>
+
+<msg type="error" file="HDLCompilers" num="26" delta="new" >&quot;<arg fmt="%s" index="1">apb_mod.v</arg>&quot; line <arg fmt="%d" index="2">24</arg> <arg fmt="%s" index="3">expecting &apos;parameter&apos;, found &apos;dataWidth&apos;</arg>
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 29 </arg>&apos;<arg fmt="%s" index="2">addrWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 30 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 31 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 38 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 39 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 48 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 48 </arg>&apos;<arg fmt="%s" index="2">addrWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 50 </arg>&apos;<arg fmt="%s" index="2">addrWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;apb_mod.v&quot; line 62 </arg>&apos;<arg fmt="%s" index="2">addrWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="26" delta="new" >&quot;<arg fmt="%s" index="1">mod_top.v</arg>&quot; line <arg fmt="%d" index="2">23</arg> <arg fmt="%s" index="3">expecting &apos;parameter&apos;, found &apos;addrWidth&apos;</arg>
+</msg>
+
+<msg type="error" file="HDLCompilers" num="26" delta="new" >&quot;<arg fmt="%s" index="1">mod_top.v</arg>&quot; line <arg fmt="%d" index="2">24</arg> <arg fmt="%s" index="3">expecting &apos;parameter&apos;, found &apos;dataWidth&apos;</arg>
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 29 </arg>&apos;<arg fmt="%s" index="2">addrWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 33 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 34 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 40 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 44 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+<msg type="error" file="HDLCompilers" num="28" delta="new" ><arg fmt="%s" index="1">&quot;mod_top.v&quot; line 45 </arg>&apos;<arg fmt="%s" index="2">dataWidth</arg>&apos; has not been declared
+</msg>
+
+</messages>
+
