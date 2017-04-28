@@ -51,9 +51,9 @@ module tb_top;
 	initial begin
 		// Initialize Inputs
 		PCLK = 0;
-		PRESETn = 1;
+		PRESETn = 0;
 		PADDR = 0;
-		PSELx = 1;
+		PSELx = 0;
 		PENABLE = 0;
 		PWRITE = 0;
 		PWDATA = 0;
@@ -61,20 +61,50 @@ module tb_top;
 		// Wait 100 ns for global reset to finish
 		#100;
         
-		// Reset
-		#7 PRESETn = 0;
-		#20 PRESETn = 1;
+		// Add stimulus here
+		
+		//reset
+		#10 PRESETn = 1;
+		#150 PRESETn = 0;
+		
+		// 6-os cimbe 4 beírása
+		#10 PADDR = 6;
+		#10 PWDATA = 4;
+		#10 PWRITE = 1;
+		#10 PSELx = 1;
+		#10 PENABLE = 1;		
+		
+		#100
+		
+		//to idle
+		#10 PENABLE = 0;
+		#10 PSELx = 0;
+		
+		#100
+		
+		//kilvasas
+		#10 PWRITE = 0;
+		#10 PSELx = 1;
+		#10 PENABLE = 1;
+		
+		#100
+		
+		//to idle
+		#10 PENABLE = 0;
+		#10 PSELx = 0;
+		
+		#50
+		
+		#100 PRESETn = 1;
+
+		
 	end
+		
 	
-	initial begin
-		#21 PENABLE = 1;
+	always begin
+		#20 PCLK = ~PCLK;
 	end
-	
-	initial
-		#200 PSELx = 0;
-	
-	always #5
-		PCLK <= ~PCLK;
+      
       
 endmodule
 

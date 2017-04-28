@@ -1,0 +1,4 @@
+verilog work "apb_mod.v"
+verilog work "mod_top.v"
+verilog work "tb_top.v"
+verilog work "D:/Programs/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v"

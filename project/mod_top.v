@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mod_top(
 	input			PCLK,      // The rising edge of PCLK is used to time all transfers on the APB.
-    input			PRESETn,   // The APB bus reset signal is active LOW and this signal will normally be connected directly to the system bus reset signal.
+   input			PRESETn,   // The APB bus reset signal is active LOW and this signal will normally be connected directly to the system bus reset signal.
 	input 	[31:0]	PADDR,     // This is the APB address bus, which may be up to 32-bits wide and is driven by the peripheral bus bridge unit.
 	input 			PSELx,     // A signal from the secondary decoder, within the peripheral bus bridge unit, to each peripheral bus slave x. This signal indicates that the slave device is selected and a data transfer is required. There is a PSELx signal for each bus slave.
 	input 			PENABLE,   // This strobe signal is used to time all accesses on the peripheral bus. The enable signal is used to indicate the second cycle of an APB transfer. The rising edge of PENABLE occurs in the middle of the APB transfer.
@@ -29,7 +29,23 @@ module mod_top(
 	input 	[31:0] 	PWDATA     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
 );
 
-reg [31:0] cntr;
+// apb_mod
+
+// Outputs
+	wire [31:0] prdata;
+	
+apb_mod amp_instance (
+    .clk(PCLK), 
+    .reset(PRESETn), 
+    .addr(PADDR), 
+    .pwdata(PWDATA), 
+    .prdata(PRDATA), 
+    .pwrite(PWRITE), 
+    .psel(PSELx), 
+    .penable(PENABLE)
+    );
+
+/*reg [31:0] cntr;
 
 always @ (posedge PCLK) begin
 	if (!PRESETn)
@@ -39,8 +55,8 @@ always @ (posedge PCLK) begin
 			cntr <= cntr + 1;
 		else
 			cntr <= cntr - 1;
-end
+end*/
 
-assign PRDATA = cntr;
+assign PRDATA = prdata;
 
 endmodule
