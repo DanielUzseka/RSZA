@@ -1,0 +1,18 @@
+
+
+
+// Instantiate the module
+mod_top instance_name (
+    .PCLK(PCLK), 
+    .PRESETn(PRESETn), 
+    .PADDR(PADDR), 
+    .PSELx(PSELx), 
+    .PENABLE(PENABLE), 
+    .PWRITE(PWRITE), 
+    .PRDATA(PRDATA), 
+    .PWDATA(PWDATA), 
+    .SDA(SDA), 
+    .SCL(SCL)
+    );
+
+

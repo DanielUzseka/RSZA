@@ -1,0 +1,2 @@
+vhdtdtfi -lang verilog -prj HW -o D:/RSZA/project/mod_APB.tfi -lib work D:/RSZA/project//mod_APB.v -module mod_APB -template C:/Xilinx/14.7/ISE_DS/ISE//data/tfi.tft -deleteonerror 
+vhdtdtfi -lang verilog -prj HW -o D:/RSZA/project/mod_APB.tfi -lib work D:/RSZA/project//mod_APB.v -module mod_APB -template C:/Xilinx/14.7/ISE_DS/ISE//data/tfi.tft -deleteonerror 

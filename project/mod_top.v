@@ -24,9 +24,11 @@ module mod_top(
 	input 	[31:0]	PADDR,     // This is the APB address bus, which may be up to 32-bits wide and is driven by the peripheral bus bridge unit.
 	input 			PSELx,     // A signal from the secondary decoder, within the peripheral bus bridge unit, to each peripheral bus slave x. This signal indicates that the slave device is selected and a data transfer is required. There is a PSELx signal for each bus slave.
 	input 			PENABLE,   // This strobe signal is used to time all accesses on the peripheral bus. The enable signal is used to indicate the second cycle of an APB transfer. The rising edge of PENABLE occurs in the middle of the APB transfer.
-	input 			PWRITE,    // When HIGH this signal indicates an APB write access and when LOW a read access.
-	output	[31:0]	PRDATA,    // The read data bus is driven by the selected slave during read cycles (when PWRITE is LOW). The read data bus can be up to 32-bits wide.
-	input 	[31:0] 	PWDATA     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
+	input 			PWRITE, 	// When HIGH this signal indicates an APB write access and when LOW a read access.
+	output	[31:0]	PRDATA, 	// The read data bus is driven by the selected slave during read cycles (when PWRITE is LOW). The read data bus can be up to 32-bits wide.
+	input 	[31:0] 	PWDATA, 	// The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
+	inout 			SDA,		// I2C Data
+	inout 			SCL			// I2C clock
 );
 
 reg [31:0] cntr;
@@ -40,6 +42,25 @@ always @ (posedge PCLK) begin
 		else
 			cntr <= cntr - 1;
 end
+
+// Instantiate the APB module
+mod_APB APB (
+    .PCLK(PCLK),
+    .PRESETn(PRESETn),
+    .PADDR(PADDR),
+    .PSELx(PSELx),
+    .PENABLE(PENABLE),
+    .PWRITE(PWRITE),
+    .PRDATA(PRDATA),
+    .PWDATA(PWDATA)
+    );
+
+// Instantiate the I2C module
+mod_I2C I2C(
+    .SDA(SDA),
+    .SCL(SCL)
+    );
+
 
 assign PRDATA = cntr;
 
