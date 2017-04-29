@@ -53,7 +53,7 @@ module I2C_test;
 	initial begin
 		// Initialize Inputs
 		command = 0;
-		address = 0;
+		address = 0'b10101010;
 		data = 0;
 		clk = 0;
 		rst = 0;
@@ -61,6 +61,9 @@ module I2C_test;
 
 		// Wait 100 ns for global reset to finish
 		#100;
+		
+		#10 rst = 1;
+		#30 rst = 0;
 		
 		#10 command = 1;
 		
@@ -71,7 +74,7 @@ module I2C_test;
 	end
 	
 	always begin
-		#20 clk = ~clk;
+		#10 clk = ~clk;
 	end
       
 endmodule
