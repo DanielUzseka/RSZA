@@ -22,22 +22,20 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module tb_top
-#(
-  addrWidth = 8,
-  dataWidth = 32
-);
+`include "macros.vh"
+
+module tb_top();
 	// Inputs
 	reg PCLK;
 	reg PRESETn;
-	reg [addrWidth-1:0] PADDR;
+	reg [`addrWidth-1:0] PADDR;
 	reg PSELx;
 	reg PENABLE;
 	reg PWRITE;
-	reg [dataWidth-1:0] PWDATA;
+	reg [`dataWidth-1:0] PWDATA;
 
 	// Outputs
-	wire [dataWidth-1:0] PRDATA;
+	wire [`dataWidth-1:0] PRDATA;
 
 	// Instantiate the Unit Under Test (UUT)
 	mod_top uut (
@@ -70,7 +68,7 @@ module tb_top
 		#10 PRESETn = 1;
 		#150 PRESETn = 0;
 		
-		// 1-es (resetbit) cimbe 1 beírása
+		// 1-es (resetbit) cimbe 1 bersa
 		#10 PADDR = 1;
 		#10 PWDATA = 1;
 		#10 PWRITE = 1;
@@ -86,7 +84,7 @@ module tb_top
 		#40
 		
 		//
-		// 4-es (per_data) cimbe 144 beírása
+		// 4-es (per_data) cimbe 144 bersa
 		#10 PADDR = 4;
 		#10 PWDATA = 144;
 		#10 PSELx = 1;
@@ -120,7 +118,7 @@ module tb_top
 		
 	
 	always begin
-		#20 PCLK = ~PCLK;
+		#25 PCLK = ~PCLK;
 	end
       
       

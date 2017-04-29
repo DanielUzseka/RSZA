@@ -18,25 +18,24 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+`include "macros.vh"
+
+
 module apb_mod
-#(
-  addrWidth = 8,
-  dataWidth = 32
-)
 (
    input clk,
     input reset,
-    input [addrWidth-1:0] addr,
-    input [dataWidth-1:0] pwdata,
-    output reg [dataWidth:0] prdata,
+    input [`addrWidth-1:0] addr,
+    input [`dataWidth-1:0] pwdata,
+    output reg [`dataWidth:0] prdata,
     input pwrite,
     input psel,
     input penable,
 	 output reg startbit,
 	 output reg resetbit,
 	 output reg it_enable,
-	 output reg [dataWidth-1:0]per_addr,
-	 output reg [dataWidth-1:0]per_data
+	 output reg [`dataWidth-1:0]per_addr,
+	 output reg [`dataWidth-1:0]per_data
     );
 
 /*reg [7:0] clk_counter;
@@ -45,9 +44,9 @@ initial clk_counter = 0;*/
 reg [1:0] apb_status;
 integer i;
 
-reg [dataWidth-1:0] mem [addrWidth-1:0];
+reg [`dataWidth-1:0] mem [`addrWidth-1:0];
 initial begin
-   for (i=0; i<=addrWidth; i=i+1) begin
+   for (i=0; i<=`addrWidth; i=i+1) begin
       mem[i] = 0;
    end
 end
@@ -59,7 +58,7 @@ always @ (posedge clk or negedge reset) begin
 	if (reset == 1) begin
 		apb_status = 0;
 		prdata <= 0;
-		for (i=0; i<=addrWidth; i=i+1) begin
+		for (i=0; i<=`addrWidth; i=i+1) begin
 			mem[i] = 0;
 		end
 	end

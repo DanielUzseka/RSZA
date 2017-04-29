@@ -42,6 +42,10 @@
 *_usage.xml
 *_xst.xrpt
 
+# don't know what are these, but nevertheless
+**.wdb
+**.log
+
 # iMPACT generated files
 _impactbatch.log
 impact.xsl
@@ -65,3 +69,4 @@ xlnx_auto_0_xdb/
 xst/
 _ngo/
 _xmsgs/
+isim/

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/tb_top/PCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCLK</obj_property>
+      <obj_property name="ObjectShortName">PCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PADDR[7:0]</obj_property>
+      <obj_property name="ObjectShortName">PADDR[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PWRITE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PWRITE</obj_property>
+      <obj_property name="ObjectShortName">PWRITE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PSELx" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PSELx</obj_property>
+      <obj_property name="ObjectShortName">PSELx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PENABLE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PENABLE</obj_property>
+      <obj_property name="ObjectShortName">PENABLE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PRDATA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PRDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PRDATA[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PWDATA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PWDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PWDATA[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/PRESETn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PRESETn</obj_property>
+      <obj_property name="ObjectShortName">PRESETn</obj_property>
+   </wvobject>
+</wave_config>
