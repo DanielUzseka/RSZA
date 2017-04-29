@@ -52,7 +52,7 @@ module tb_top();
 	initial begin
 		// Initialize Inputs
 		PCLK = 0;
-		PRESETn = 0;
+		PRESETn = 1;
 		PADDR = 0;
 		PSELx = 0;
 		PENABLE = 0;
@@ -60,26 +60,24 @@ module tb_top();
 		PWDATA = 0;
 
 		// Wait 100 ns for global reset to finish
-		#100;
+		#50;
         
 		// Add stimulus here
 		
 		//reset
-		#10 PRESETn = 1;
-		#150 PRESETn = 0;
+		#10 PRESETn = 0;
+		#80 PRESETn = 1;
 		
 		// 1-es (resetbit) cimbe 1 bersa
-		#10 PADDR = 1;
-		#10 PWDATA = 1;
-		#10 PWRITE = 1;
+		#40 PADDR = 1; PWDATA = 1;
+		#5 PWRITE = 1;
 		#10 PSELx = 1;
+		#25 //penable csak kovetkezo ciklusban!
 		#10 PENABLE = 1;		
-		
-		#100
-		
+		#50
+
 		//to idle
-		#10 PENABLE = 0;
-		#10 PSELx = 0;
+		#10 PENABLE = 0; PSELx = 0;
 		
 		#40
 		

@@ -3,14 +3,14 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_isim_beh1.wdb" id="1" type="auto">
+      <db_ref path="/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="glbl" />
             <top_module name="tb_top" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="11" />
    <wvobject fp_name="/tb_top/PCLK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">PCLK</obj_property>
       <obj_property name="ObjectShortName">PCLK</obj_property>
@@ -45,5 +45,60 @@
    <wvobject fp_name="/tb_top/PRESETn" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">PRESETn</obj_property>
       <obj_property name="ObjectShortName">PRESETn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/amp_instance/per_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">per_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">per_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/amp_instance/per_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">per_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">per_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/amp_instance/mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem[7:0,31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[7:0,31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[7]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[7,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[7,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[6]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[6,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[6,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[5]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[5,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[5,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[4,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[3,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[2,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[1,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/uut/amp_instance/mem[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,31:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[0,31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

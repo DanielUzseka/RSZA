@@ -45,17 +45,11 @@ reg [1:0] apb_status;
 integer i;
 
 reg [`dataWidth-1:0] mem [`addrWidth-1:0];
-initial begin
-   for (i=0; i<=`addrWidth; i=i+1) begin
-      mem[i] = 0;
-   end
-end
-
 
 always @ (posedge clk or negedge reset) begin
 	/*clk_counter <= clk_counter + 1;
 	prdata <= clk_counter;*/
-	if (reset == 1) begin
+	if (reset == 0) begin
 		apb_status = 0;
 		prdata <= 0;
 		for (i=0; i<=`addrWidth; i=i+1) begin
