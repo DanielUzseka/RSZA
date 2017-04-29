@@ -1,0 +1,21 @@
+
+
+
+// Instantiate the module
+apb_mod instance_name (
+    .clk(clk), 
+    .reset(reset), 
+    .addr(addr), 
+    .pwdata(pwdata), 
+    .prdata(prdata), 
+    .pwrite(pwrite), 
+    .psel(psel), 
+    .penable(penable), 
+    .startbit(startbit), 
+    .resetbit(resetbit), 
+    .it_enable(it_enable), 
+    .per_addr(per_addr), 
+    .per_data(per_data)
+    );
+
+

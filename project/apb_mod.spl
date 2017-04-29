@@ -1,0 +1,14 @@
+[Inputs]
+clk
+reset
+pwrite
+psel
+penable
+=addr[7:0]=
+=pwdata[7:0]=
+[Outputs]
+=prdata[7:0]=
+[BiDir]
+[ATTRIBUTES]
+VeriModel apb_mod
+
