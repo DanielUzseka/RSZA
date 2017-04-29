@@ -1,3 +1,0 @@
-verilog work "mod_I2C.v"
-verilog work "mod_APB.v"
-verilog work "mod_top.v"

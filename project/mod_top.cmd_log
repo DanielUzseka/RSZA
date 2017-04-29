@@ -1,3 +1,0 @@
-vhdtdtfi -lang verilog -prj HW -o D:/RSZA/project/mod_top.tfi -lib work D:/RSZA/project//mod_top.v -module mod_top -template C:/Xilinx/14.7/ISE_DS/ISE//data/tfi.tft -deleteonerror 
-xst -intstyle ise -ifn "D:/RSZA/project/mod_top.xst" -ofn "D:/RSZA/project/mod_top.syr" 
-vhdtdtfi -lang verilog -prj HW -o D:/RSZA/project/mod_top.tfi -lib work D:/RSZA/project//mod_top.v -module mod_top -template C:/Xilinx/14.7/ISE_DS/ISE//data/tfi.tft -deleteonerror 
