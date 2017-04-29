@@ -53,8 +53,8 @@ module I2C_test;
 	initial begin
 		// Initialize Inputs
 		command = 0;
-		address = 0'b10101010;
-		data = 0;
+		address = 0'b00101010;
+		data = 0'b01010101;
 		clk = 0;
 		rst = 0;
 
@@ -68,13 +68,16 @@ module I2C_test;
 		#10 command = 1;
 		
 		#40 command = 0;
+		
+		//#296 SDA = 0;
+		//#32 SDA = 0'bz;
         
 		// Add stimulus here
 		
 	end
 	
 	always begin
-		#10 clk = ~clk;
+		#4 clk = ~clk;
 	end
       
 endmodule

@@ -32,7 +32,8 @@ module mod_I2C(
 	input 			clk, //16MHz clk
 	input				rst,
 	
-	output reg ready
+	output reg [7:0]	data_out,
+	output reg 			ready
     );
 	 
 
@@ -159,14 +160,18 @@ begin
 				
 				if(1 == rSCL)
 				begin
-					if(1 == SDA)
-					begin
+					//if(0 == SDA)
+					//begin
 						byteCounter <= 0;
 						if(1 == read)
 							states <= READ;
 						else
 							states <= WRITE;
-					end
+					//end
+					//else
+					//begin
+						//error - no Ack
+					//end
 				end
 			end
 			else
@@ -177,15 +182,133 @@ begin
 		
 		READ :
 		begin
+			if (cnt == div)
+			begin
+				cnt <= 0;
+				rSCL <= ~rSCL;
+				if(8 == byteCounter)
+				begin
+					states <= SEND_ACK;
+				end
+			end
+			else
+			begin
+				cnt <= cnt + 1;
+			end
+			if(cnt == (div/2))
+			begin
+				if(1 == rSCL)
+				begin
+					data_out[byteCounter] <= SDA;
+					byteCounter <= byteCounter + 1;
+				end
+			end
 		end
 		
 		WRITE :
 		begin
+			if (cnt == div)
+			begin
+				cnt <= 0;
+				rSCL <= ~rSCL;
+			end
+			else
+			begin
+				cnt <= cnt + 1;
+			end
+			if(cnt == (div/2))
+			begin
+				if(0 == rSCL)
+				begin
+					if(8 == byteCounter)
+					begin
+						states <= WAIT_DATA_ACK;
+					end
+					else
+					begin
+						rSDA <= data[byteCounter];
+						byteCounter <= byteCounter + 1;
+					end
+				end
+			end
+		end
+		
+		WAIT_DATA_ACK :
+		begin
+			if(cnt == div)
+			begin
+				cnt <= 0;
+				rSCL <= ~rSCL; //pull scl down
+			end
+			else
+			begin
+				cnt <= cnt + 1;
+			end
+			if(cnt == (div/2))
+			begin
+				if(1 == rSCL)
+				begin
+					//if(0 == SDA)
+					//begin
+						byteCounter <= 0;
+						states <= STOP;
+					//end
+					//else
+					//begin
+						//error - no Ack
+					//end
+				end
+			end
+		end
+		
+		SEND_ACK :
+		begin
+			if(cnt == div)
+			begin
+				cnt <= 0;
+				rSCL <= ~rSCL; //pull scl down
+			end
+			else
+			begin
+				cnt <= cnt + 1;
+			end
+			if(cnt == (div/2))
+			begin
+				if(0 == rSCL)
+				begin
+					rSDA <= 0;
+				end
+				else
+				begin
+					states <= STOP;
+				end
+			end
+		end
+		
+		STOP :
+		begin
+			if(cnt == div)
+			begin
+				cnt <= 0;
+				rSCL <= ~rSCL; //pull scl down
+			end
+			else
+			begin
+				cnt <= cnt + 1;
+			end
+			if(cnt == (div/2))
+			begin
+				if(1 == rSCL)
+				begin
+					rSDA <= 1;
+					states <= IDLE;
+				end
+			end
 		end
 		
 	endcase
 	
-	$display("state: %d",states);
+	$display("state: %d, i: %d",states, byteCounter);
 			
 end
 
