@@ -59,6 +59,18 @@ apb_mod amp_instance (
     .per_addr(per_addr), 
     .per_data(per_data)
     );
+	 
+// Instantiate the module
+mod_I2C instance_name (
+    .SDA(SDA), 
+    .SCL(SCL), 
+    .command(command), 
+    .address(address), 
+    .data(data), 
+    .clk(clk), 
+    .rst(rst), 
+    .ready(ready)
+    );
 
 /*reg [31:0] cntr;
 

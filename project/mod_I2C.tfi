@@ -4,7 +4,13 @@
 // Instantiate the module
 mod_I2C instance_name (
     .SDA(SDA), 
-    .SCL(SCL)
+    .SCL(SCL), 
+    .command(command), 
+    .address(address), 
+    .data(data), 
+    .clk(clk), 
+    .rst(rst), 
+    .ready(ready)
     );
 
 

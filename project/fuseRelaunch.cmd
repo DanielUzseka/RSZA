@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/Documents/GitHub/RSZA/project/tb_top_isim_beh.exe" -prj "D:/Documents/GitHub/RSZA/project/tb_top_beh.prj" "work.tb_top" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/RSZA/project/I2C_test_isim_beh.exe" -prj "D:/RSZA/project/I2C_test_beh.prj" "work.I2C_test" "work.glbl" 
