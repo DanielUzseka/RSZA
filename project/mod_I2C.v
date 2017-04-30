@@ -103,7 +103,7 @@ begin
 		
 		START :
 		begin
-			rSDA = 0; //pull down the wire
+			rSDA <= 0; //pull down the wire
 			
 			if (cnt == div) //divided clock -> toggle the scl
 			begin
@@ -113,7 +113,7 @@ begin
 				
 				byteCounter <= 0;
 				read <= address[7];
-				states = WRITE_ADDR; //go to the next state
+				states <= WRITE_ADDR; //go to the next state
 			end
 			else
 			begin
@@ -314,6 +314,7 @@ end
 
 
 // Open Drain assignment
+//pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
 //assign SCL = rSCL ? 1'bz : 1'b0;
