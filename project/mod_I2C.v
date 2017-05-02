@@ -22,13 +22,7 @@ module mod_I2C(
 	inout 			SDA,		// I2C Data
 	output 			SCL,		// I2C clock
 	
-	input [3:0]		command,
-		//0: start
-		//1: 
-		//2: reset periphery
-		//3: speed
-	input [7:0]		address, //7 bits address + read/write bit
-	input [7:0]		data , //1 byte data
+	inout [31:0]	data,
 	input 			clk, //16MHz clk
 	input				rst,
 	
@@ -41,6 +35,8 @@ reg rSDA = 1;
 reg rSCL = 1;
 
 reg i2c_clk;
+
+reg [31:0] regData;
 
 reg [3:0]	states			= 0;
 reg [3:0]	IDLE 				= 0;
@@ -63,31 +59,19 @@ reg	[7:0] cnt;
 
 reg read;
 
-//initial begin
-//   for (i=0; i<=addrWidth; i=i+1) begin
-//      mem[i] = 0;
-//   end
-//end
 
 always @(posedge clk) 
 begin
-	if (rst | command[2]) //reset
-	begin
-		states <= IDLE;
-		rSDA <= 1;
-		rSCL <= 1;
-		cnt <= 0;
-	end
-	
 	case (states)
 		IDLE : 
 		begin
-			if (1 == command[0]) //start
+			if (1 == regData[0]) //start //!!!!!
 			begin
 				ready <= 0; //i2c is not ready for another communication
+				regData[0] <= 0; //!!!!!
 				
 				//set the speed of the communication
-				if (command[3] == SPEED_100kBPS)
+				if (regData[3] == SPEED_100kBPS) //!!!!!
 				begin
 					div <= 1; //16Mbps to 100kbps (x2) - 80
 				end
@@ -103,7 +87,7 @@ begin
 		
 		START :
 		begin
-			rSDA = 0; //pull down the wire
+			rSDA <= 0; //pull down the wire
 			
 			if (cnt == div) //divided clock -> toggle the scl
 			begin
@@ -112,8 +96,8 @@ begin
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= address[7];
-				states = WRITE_ADDR; //go to the next state
+				read <= regData[7]; //!!!!!
+				states <= WRITE_ADDR; //go to the next state
 			end
 			else
 			begin
@@ -144,7 +128,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= address[byteCounter];
+						rSDA <= regData[byteCounter]; //!!!!!
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -160,18 +144,18 @@ begin
 				
 				if(1 == rSCL)
 				begin
-					//if(0 == SDA)
-					//begin
+					if(0 == SDA)
+					begin
 						byteCounter <= 0;
 						if(1 == read)
 							states <= READ;
 						else
 							states <= WRITE;
-					//end
-					//else
-					//begin
+					end
+					else
+					begin
 						//error - no Ack
-					//end
+					end
 				end
 			end
 			else
@@ -226,7 +210,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= data[byteCounter];
+						rSDA <= regData[byteCounter]; //!!!!!
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -248,15 +232,15 @@ begin
 			begin
 				if(1 == rSCL)
 				begin
-					//if(0 == SDA)
-					//begin
+					if(0 == SDA)
+					begin
 						byteCounter <= 0;
 						states <= STOP;
-					//end
-					//else
-					//begin
+					end
+					else
+					begin
 						//error - no Ack
-					//end
+					end
 				end
 			end
 		end
@@ -308,14 +292,24 @@ begin
 		
 	endcase
 	
-	$display("state: %d, i: %d",states, byteCounter);
+//	$display("state: %d, i: %d",states, byteCounter);
 			
 end
+
+always @(posedge clk)
+	if (rst | regData[2]) //reset //!!!!!
+	begin
+		states <= IDLE;
+		rSDA <= 1;
+		rSCL <= 1;
+		cnt <= 0;
+	end
 
 
 // Open Drain assignment
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
+assign data = regData;
 //assign SCL = rSCL ? 1'bz : 1'b0;
 // assign i2c_clk = (cnt == div);
 
