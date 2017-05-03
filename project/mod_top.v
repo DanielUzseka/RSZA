@@ -47,22 +47,18 @@ module mod_top
 	wire [`dataWidth-1:0] per_addr; //azert datawith nem pedig addrwith mert ez az i2c periferiaira vonatkozik
 	wire [`dataWidth-1:0] per_data;
 	
-apb_mod amp_instance (
+// Instantiate the module
+apb_mod inst_APB (
     .clk(PCLK), 
     .reset(PRESETn), 
-    .addr(PADDR), 
+    .paddr(PADDR), 
     .pwdata(PWDATA), 
     .prdata(PRDATA), 
     .pwrite(PWRITE), 
     .psel(PSELx), 
-    .penable(PENABLE)/*,
-    .startbit(startbit), 
-    .resetbit(resetbit), 
-    .it_enable(it_enable), 
-    .per_addr(per_addr), 
-    .per_data(per_data)*/
+    .penable(PENABLE), 
+    .perdata(perdata)
     );
-	 // should just connect to mem, as the mod_I2c
 	 
 // Instantiate the module
 mod_I2C instance_name (
@@ -75,9 +71,5 @@ mod_I2C instance_name (
     .rst(rst), 
     .ready(ready)
     );
-	 
-// Instantiate pullup
-PULLUP PU_SDA (
-.O(SDA)); 
 	 
 endmodule
