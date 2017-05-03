@@ -68,8 +68,8 @@ module tb_top();
 		#10 PRESETn = 0;
 		#80 PRESETn = 1;
 		
-		// 1-es (resetbit) cimbe 1 bersa
-		#40 PADDR = 1; PWDATA = 1;
+		// kezdocimre 1 beirasa
+		#40 PADDR = 0'h80000000; PWDATA = 1;
 		#5 PWRITE = 1;
 		#10 PSELx = 1;
 		#25 //penable csak kovetkezo ciklusban!
@@ -81,25 +81,28 @@ module tb_top();
 		
 		#40
 		
-		//
-		// 4-es (per_data) cimbe 144 bersa
-		#10 PADDR = 4;
-		#10 PWDATA = 144;
+		//kiolvasas
+		#10 PWRITE = 0;
 		#10 PSELx = 1;
 		#10 PENABLE = 1;
-
+		
 		#40
 		
 		//to idle
 		#10 PENABLE = 0;
 		#10 PSELx = 0;
 		
-		#40
-		
-		//kilvasas
-		#10 PWRITE = 0;
+		//
+		// ervenytelen cimbe iras
+		#10 PADDR = 0'h80000004;
+		#10 PWDATA = 144;
 		#10 PSELx = 1;
 		#10 PENABLE = 1;
+
+		#40
+		
+		
+		
 		
 		#100
 		

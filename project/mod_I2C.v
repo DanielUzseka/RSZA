@@ -100,8 +100,8 @@ begin
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= regData[3]; //read or write
-				states <= WRITE_ADDR; //go to the next state
+				read <= address[7];
+				states = WRITE_ADDR; //go to the next state
 			end
 			else
 			begin
@@ -310,7 +310,6 @@ always @(posedge clk)
 		cnt <= 0;
 	end
 
-
 // Open Drain assignment
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
@@ -320,3 +319,8 @@ assign data = regData;
 
 
 endmodule
+
+				read <= regData[3]; //read or write
+				states <= WRITE_ADDR; //go to the next state
+// Open Drain assignment
+//pullup(SDA); //for simulation only!

@@ -32,7 +32,9 @@ module mod_top
 	input 			PENABLE,   // This strobe signal is used to time all accesses on the peripheral bus. The enable signal is used to indicate the second cycle of an APB transfer. The rising edge of PENABLE occurs in the middle of the APB transfer.
 	input 			PWRITE,    // When HIGH this signal indicates an APB write access and when LOW a read access.
 	output	[`dataWidth-1:0]	PRDATA,    // The read data bus is driven by the selected slave during read cycles (when PWRITE is LOW). The read data bus can be up to 32-bits wide.
-	input 	[`dataWidth-1:0] 	PWDATA     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
+	input 	[`dataWidth-1:0] 	PWDATA,     // The write data bus is driven by the peripheral bus bridge unit during write cycles (when PWRITE is HIGH). The write data bus can be up to 32-bits wide.
+	inout SDA,
+	output SCL
 );
 
 // apb_mod
@@ -45,20 +47,17 @@ module mod_top
 	wire [`dataWidth-1:0] per_addr; //azert datawith nem pedig addrwith mert ez az i2c periferiaira vonatkozik
 	wire [`dataWidth-1:0] per_data;
 	
-apb_mod amp_instance (
+// Instantiate the module
+apb_mod inst_APB (
     .clk(PCLK), 
     .reset(PRESETn), 
-    .addr(PADDR), 
+    .paddr(PADDR), 
     .pwdata(PWDATA), 
     .prdata(PRDATA), 
     .pwrite(PWRITE), 
     .psel(PSELx), 
-    .penable(PENABLE),
-    .startbit(startbit), 
-    .resetbit(resetbit), 
-    .it_enable(it_enable), 
-    .per_addr(per_addr), 
-    .per_data(per_data)
+    .penable(PENABLE), 
+    .perdata(perdata)
     );
 	 
 // Instantiate the module
@@ -72,19 +71,5 @@ mod_I2C instance_name (
     .rst(rst), 
     .ready(ready)
     );
-
-/*reg [31:0] cntr;
-
-always @ (posedge PCLK) begin
-	if (!PRESETn)
-		cntr <= 0;
-	else if (PENABLE)
-		if (PSELx)
-			cntr <= cntr + 1;
-		else
-			cntr <= cntr - 1;
-end*/
-
-assign PRDATA = prdata;
-
+	 
 endmodule

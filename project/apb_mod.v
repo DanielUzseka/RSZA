@@ -25,73 +25,51 @@ module apb_mod
 (
    input clk,
     input reset,
-    input [`addrWidth-1:0] addr,
+    input [`addrWidth-1:0] paddr,
     input [`dataWidth-1:0] pwdata,
-    output reg [`dataWidth:0] prdata,
+    output reg [`dataWidth-1:0] prdata,
     input pwrite,
     input psel,
     input penable,
-	 output reg startbit,
-	 output reg resetbit,
-	 output reg it_enable,
-	 output reg [`dataWidth-1:0]per_addr,
-	 output reg [`dataWidth-1:0]per_data
+	 output reg [`dataWidth-1:0] perdata
     );
 
 /*reg [7:0] clk_counter;
 initial clk_counter = 0;*/
 
 reg [1:0] apb_status;
-integer i;
 
-reg [`dataWidth-1:0] mem [`addrWidth-1:0];
 
-always @ (posedge clk or negedge reset) begin
-	/*clk_counter <= clk_counter + 1;
-	prdata <= clk_counter;*/
-	if (reset == 0) begin
-		apb_status = 0;
-		prdata <= 0;
-		for (i=0; i<=`addrWidth; i=i+1) begin
-			mem[i] = 0;
+always @ (posedge clk) begin // reset block (synchronous)
+	if(0 == reset) begin
+		apb_status <= 0; 	// reset state
+		prdata <= 0;		// reset amba output data
+		perdata <= 0;		// reset I2C output data
+	end
+end
+
+always @(apb_status) begin	// combinatorial block
+	if (apb_status == 2) 		// AMBA read
+		prdata <= perdata;
+	else if (apb_status == 3) 	// AMBA write
+		perdata <= pwdata;
+end
+
+always @ (posedge clk) begin	// clocked block
+	if (psel == 0) // not selected
+		apb_status <= 0;
+	else begin	// selected
+		if (penable == 0) // but not enabled
+			apb_status <= 1;
+		else begin	// selected and enabled
+			if (0'h80000000 == paddr) begin // base address is 0x80000000	
+				if (pwrite == 0)
+					apb_status <= 2;	//read
+				else
+					apb_status <= 3;	//write
+			end
 		end
 	end
-	else
-		if (psel == 0)
-			apb_status = 0;
-		else
-			if (penable == 0)
-				apb_status = 1;
-			else
-				if (pwrite == 0)
-					apb_status = 2;
-				else
-					apb_status = 3;
-	
-	if (apb_status == 2)
-		prdata = mem[addr];
-	else if (apb_status == 3)
-		mem[addr] = pwdata;
-	
-	startbit = mem[0];
-	resetbit = mem[1];
-	it_enable = mem[2];
-	per_addr = mem[3];
-	per_data = mem[4];
-
-/*	$display("Status is: %d", apb_status);
-	//$display("int: %d", addr_int);
-
-	for (i=0; i<addrWidth; i=i+1)
-		$display("Mem %d: %d",i,mem[i]);	
-	$display("------------------------");*/
-	
-	$display("startbit: %d",startbit);
-	$display("resetbit: %d",resetbit);	
-	$display("it_enable: %d",it_enable);	
-	$display("per_addr: %d",per_addr);	
-	$display("per_data: %d",per_data);	
-	$display("------------------------");
 
 end
 
