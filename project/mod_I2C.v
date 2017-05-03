@@ -24,10 +24,7 @@ module mod_I2C(
 	
 	inout [31:0]	data,
 	input 			clk, //16MHz clk
-	input				rst,
-	
-	output reg [7:0]	data_out,
-	output reg 			ready
+	input				rst
     );
 	 
 
@@ -37,6 +34,13 @@ reg rSCL = 1;
 reg i2c_clk;
 
 reg [31:0] regData;
+	//0: start
+	//1: reset
+	//2: speed
+	//3: read/write
+	//4-10: address
+	//11-18: data
+	//19: ready bit
 
 reg [3:0]	states			= 0;
 reg [3:0]	IDLE 				= 0;
@@ -65,13 +69,13 @@ begin
 	case (states)
 		IDLE : 
 		begin
-			if (1 == regData[0]) //start //!!!!!
+			if (1 == regData[0]) //start
 			begin
-				ready <= 0; //i2c is not ready for another communication
-				regData[0] <= 0; //!!!!!
+				regData[19] <= 0; //i2c is not ready for another communication
+				regData[0] <= 0; //clear start bit
 				
 				//set the speed of the communication
-				if (regData[3] == SPEED_100kBPS) //!!!!!
+				if (regData[2] == SPEED_100kBPS) //get the speed
 				begin
 					div <= 1; //16Mbps to 100kbps (x2) - 80
 				end
@@ -96,7 +100,7 @@ begin
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= regData[7]; //!!!!!
+				read <= regData[3]; //read or write
 				states <= WRITE_ADDR; //go to the next state
 			end
 			else
@@ -128,7 +132,8 @@ begin
 					end
 					else
 					begin
-						rSDA <= regData[byteCounter]; //!!!!!
+						rSDA <= regData[10-byteCounter]; 
+						//from the 10th to the 3rd bit
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -183,7 +188,7 @@ begin
 			begin
 				if(1 == rSCL)
 				begin
-					data_out[byteCounter] <= SDA;
+					regData[18-byteCounter] <= SDA; //save the incoming data
 					byteCounter <= byteCounter + 1;
 				end
 			end
@@ -210,7 +215,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= regData[byteCounter]; //!!!!!
+						rSDA <= regData[18-byteCounter]; //send the data
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -297,7 +302,7 @@ begin
 end
 
 always @(posedge clk)
-	if (rst | regData[2]) //reset //!!!!!
+	if (rst | regData[1]) //reset
 	begin
 		states <= IDLE;
 		rSDA <= 1;
