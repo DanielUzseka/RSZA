@@ -49,7 +49,58 @@ Mint az a \figref{modtop} ábrán is látszik, modulunk (\emph{mod\_top}) 2 almo
 Az APB modul a rendszerbusz vezérlőjeleit dekódolja, és továbbítja a szükséges adatokat az I2C modulnak.
 Az I2C modul a rendelkezésére bocsátott adatokból lefolytatja soros kommunikációt.
 
-A továbbiakban tekintsük át részletesebben az almodulok felépítését.
+A továbbiakban tekintsük át részletesebben az almodulok felépítését. A modulokhoz, és a későbbiekben a tesztek kapcsolódó forráskódok a dokumentum végén, a függelékben találhatóak.
+
+\section{mod\_top}
 
 \section{mod\_apb}
+\subsubsection{Ki és bemenetek}
+Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek a busz jeleivel, eltekintve a PREADY és PSLVERR jelektől, melyeket nem használunk. Továbbá tartalmaz egy darab 32 bites ki-bemeneti regisztert, amely tartalmazza az I2C modul számára küldött, illetve attól fogadott összes releváns adatot. A pontos tartalmat lásd az I2C modul tárgyalásánál.
+
+\subsubsection{Reset}
+    A modul szinkron resetet valósít meg, az órajel felfutó élére mintát vesz a PRESETn jelből, amelynek alacsony értéke mellett nullára állítja a belső állapotregiszterét, illetve az APB és I2C felé menő kimeneteit.
+
+\subsubsection{Állapotok}
+    Ez az almodul 4 belső állapotot különböztet meg az APB vezérlőjelek alapján, ahol \emph{X} az érdektelent (Don't Care), \emph{1}  a logikai magasat (illetve helyes címet), \emph{0}  pedig ennek ellenkezőjét jelöli. Az alábbi táblázat szemlélteti az állapotokat:\\[2ex]
+
+    \begin{tabular}{l|c|c|c|c}
+        \textbf{Állapot}& \textbf{PADDR} & \textbf{PSELx} & \textbf{PENABLE}   & \textbf{PWRITE}    \\
+        \textbf{IDLE}   &   X            & 0              & 0                  & X                  \\
+        \textbf{SETUP}  &   X            & 1              & 0                  & X                  \\
+        \textbf{READ}   &   1            & 1              & 1                  & 0                  \\
+        \textbf{WRITE}  &   1            & 1              & 1                  & 1
+    \end{tabular}
+
+\subsubsection{Logika}
+    A vezérlőjelek dekódolása alapján, READ állapotban a ki-bemeneti regiszterét a PRDATA buszra kapuzza, WRITE állapotban a PWDATA busz tartalmát betölti ugyanebbe a regiszterbe.
+
+
 \section{mod\_i2c}
+\subsubsection{Ki és bemenetek}
+    Ez a modul közvetlenül az I2C buszra csatlakozik, így rendelkezik egy kétirányú, háromállapotú SDA porttal, mely a nyitott-kollektoros működést valósítja meg, illetve egy SCL órajel kimenettel. Továbbá csatlakozik a mod\_apb modulhoz egy 32 bit széles regiszteren keresztül. Ez a regiszter tartalmaz minden információt a modul számára az I2C kommunikáció kezdeményezéséhez. A regiszter tartalmát lásd a \figref{reg} ábrán.
+
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[scale=0.8]
+            \bitrect{16}{32-\bit}
+            \robits{0}{13}{}
+            \rwbits{13}{3}{DATA[0:2]}
+        \end{tikzpicture}\\[2ex]
+        \begin{tikzpicture}[scale=0.8]
+            \bitrect{16}{16-\bit}
+            \rwbits{0}{5}{DATA[3:7]}
+            \rwbits{5}{7}{ADDR[0:6]} % endianness??
+            \rwbits{12}{1}{R/W}
+            \rwbits{13}{1}{Sp}
+            \rwbits{14}{1}{R}
+            \rwbits{15}{1}{S}
+        \end{tikzpicture}
+        \caption{}
+        \label{fig:reg}
+    \end{figure}
+
+\subsubsection{Reset}
+    Az APB bus PRESETn jelének
+\subsubsection{Állapotok}
+
+\subsubsection{Logika}
