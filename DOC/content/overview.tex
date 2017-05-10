@@ -83,7 +83,8 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
         \centering
         \begin{tikzpicture}[scale=0.8]
             \bitrect{16}{32-\bit}
-            \robits{0}{13}{}
+            \robits{0}{12}{}
+            \robits{12}{1}{RDY}
             \rwbits{13}{3}{DATA[0:2]}
         \end{tikzpicture}\\[2ex]
         \begin{tikzpicture}[scale=0.8]
@@ -100,7 +101,58 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
     \end{figure}
 
 \subsubsection{Reset}
-    Az APB bus PRESETn jelének
-\subsubsection{Állapotok}
+    Ez az almodul is szinkron resetet valósít meg, az órajel felfutó élére vizsgálja a PRESETn vonalat és a regiszterének második bitjét ( \code{regData[1]} ). Ha ezek közül PRESETn-t 0-nak, a bitet pedig 1-nek találja, elengedi az SDA és SCL vonalakat, és belső állapotváltozóit és számlálóit alaphelyzetbe állítja.
 
+\subsubsection{Állapotok}
+\begin{tabular}{l|c|c|c|c}
+    \textbf{Állapot}    & \textbf{PADDR} & \textbf{PSELx} & \textbf{PENABLE}   & \textbf{PWRITE}    \\
+    \textbf{IDLE}           &   X            & 0              & 0                  & X              \\
+    \textbf{START}          &   X            & 1              & 0                  & X              \\
+    \textbf{STOP}           &   1            & 1              & 1                  & 0              \\
+    \textbf{WRITE\_ADDR}     &   1            & 1              & 1                  & 1              \\
+    \textbf{READ}           &   1            & 1              & 1                  & 1              \\
+    \textbf{WRITE}          &   1            & 1              & 1                  & 1              \\
+    \textbf{WAIT\_ADDR\_ACK}  &   1            & 1              & 1                  & 1              \\
+    \textbf{WAIT\_DATA\_ACK}  &   1            & 1              & 1                  & 1              \\
+    \textbf{SEND\_ACK}       &   1            & 1              & 1                  & 1
+\end{tabular}
 \subsubsection{Logika}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm, semithick, on grid]
+      \tikzstyle{every state}=[fill=lightgray,draw=none,text=darkgray, minimum size =2.5cm]
+      \tikzstyle{every loop}=[min distance=1em, looseness=5]
+
+      \node[initial,state] (A) at (0,0)             {IDLE};
+      \node[state]         (B) [below of=A]         {START};
+      \node[state]         (C) [below of=B]         {WRITE\_ADDR};
+      \node[state]         (D) [below of=C]         {WAIT\_AA};
+      \node[state]         (E) [below left of=D]    {READ};
+      \node[state]         (F) [below right of=D]   {WRITE};
+      \node[state]         (H) [below of=F]         {WAIT\_DA};
+      \node[state]         (I) [below of=E]         {SEND\_A};
+      \node[state]         (G) [below right of=I]   {STOP};
+
+
+      \path (A) edge              node {startbit} (B)
+                % edge              node {1,1,R} (C)
+            (B) edge              node {} (C)
+                % edge              node {0,1,L} (C)
+            (C) edge              node {8 == bC} (D)
+                edge [loop right]  node {8 > bC} (C)
+            (D) edge [loop right] node {div\_CLK} (D)
+                edge     [above left]         node {read} (E)
+                edge  [above right]            node {!read} (F)
+                edge [bend left]  node {no ACK} (A)
+            (E) edge   node {8 == bC} (I)
+                edge [loop left]  node {8 > bC} (E)
+            (F) edge [left]  node {8 == bC} (H)
+                edge [loop left]  node {8 > bC} (F)
+            (H) edge   node {} (G)
+                edge [loop right] node {div\_CLK} (H)
+                edge [bend right=40] node {no ACK} (A)
+            (I) edge   node {} (G);
+    \end{tikzpicture}
+    \caption{Az I2C modul állapotátmenetei}
+    \label{fig:statemachine}
+\end{figure}
