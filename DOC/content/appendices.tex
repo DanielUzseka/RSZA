@@ -10,23 +10,26 @@
 %\numberwithin{tabular}{section}
 
 %----------------------------------------------------------------------------
-\section{A TeXstudio felülete}
+\section{mod\_top.v}
 %----------------------------------------------------------------------------
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=150mm, keepaspectratio]{figures/TeXstudio.png}
-\caption{A TeXstudio \LaTeX-szerkesztő.} 
-\end{figure}
+\lstinputlisting{../project/mod_top.v}
 
 %----------------------------------------------------------------------------
-\clearpage\section{Válasz az ,,Élet, a világmindenség, meg minden'' kérdésére}
+\section{macros.vh}
 %----------------------------------------------------------------------------
-A Pitagorasz-tételből levezetve
-\begin{align}
-c^2=a^2+b^2=42.
-\end{align}
-A Faraday-indukciós törvényből levezetve
-\begin{align}
-\rot E=-\frac{dB}{dt}\hspace{1cm}\longrightarrow \hspace{1cm}
-U_i=\oint\limits_\mathbf{L}{\mathbf{E}\mathbf{dl}}=-\frac{d}{dt}\int\limits_A{\mathbf{B}\mathbf{da}}=42.
-\end{align}
+\lstinputlisting{../project/macros.vh}
+
+%----------------------------------------------------------------------------
+\section{mod\_APB.v}
+%----------------------------------------------------------------------------
+\lstinputlisting{../project/apb_mod.v}
+
+%----------------------------------------------------------------------------
+\section{mod\_I2C.v}
+%----------------------------------------------------------------------------
+\lstinputlisting{../project/mod_I2C.v}
+
+%----------------------------------------------------------------------------
+\section{tb\_top.v}
+%----------------------------------------------------------------------------
+\lstinputlisting{../project/tb_top.v}

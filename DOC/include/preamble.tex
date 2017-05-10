@@ -44,30 +44,21 @@
 %--------------------------------------------------------------------------------------
 % Set up listings
 %--------------------------------------------------------------------------------------
-\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
-\lstset{
-	basicstyle=\scriptsize\ttfamily, % print whole listing small
-	keywordstyle=\color{black}\bfseries, % bold black keywords
-	identifierstyle=, % nothing happens
-	% default behavior: comments in italic, to change use
-	% commentstyle=\color{green}, % for e.g. green comments
-	stringstyle=\scriptsize,
-	showstringspaces=false, % no special string spaces
-	aboveskip=3pt,
-	belowskip=3pt,
-	backgroundcolor=\color{lightgray},
-	columns=flexible,
-	keepspaces=true,
-	escapeinside={(*@}{@*)},
-	captionpos=b,
-	breaklines=true,
-	frame=single,
-	float=!ht,
-	tabsize=2,
-	literate=*
-		{á}{{\'a}}1	{é}{{\'e}}1	{í}{{\'i}}1	{ó}{{\'o}}1	{ö}{{\"o}}1	{ő}{{\H{o}}}1	{ú}{{\'u}}1	{ü}{{\"u}}1	{ű}{{\H{u}}}1
-		{Á}{{\'A}}1	{É}{{\'E}}1	{Í}{{\'I}}1	{Ó}{{\'O}}1	{Ö}{{\"O}}1	{Ő}{{\H{O}}}1	{Ú}{{\'U}}1	{Ü}{{\"U}}1	{Ű}{{\H{U}}}1
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  % frame=L,
+  xleftmargin=\parindent,
+  language=Verilog,
+  showstringspaces=false,
+  basicstyle=\scriptsize,
+  keywordstyle=\bfseries\color{blue!70!black},
+  commentstyle=\itshape\color{green!70!black},
+  identifierstyle=\color{darkgray},
+  stringstyle=\color{gray},
 }
+\lstset{escapechar="",style=customc}
+
 
 
 %--------------------------------------------------------------------------------------
@@ -113,6 +104,28 @@
 
 \renewcommand{\captionlabelfont}{\bf}
 %\renewcommand{\captionfont}{\footnotesize\it}
+
+%--------------------------------------------------------------------------------------
+% Redefine reference style
+%--------------------------------------------------------------------------------------
+\newcommand{\figref}[1]{\ref{fig:#1}}
+\renewcommand{\eqref}[1]{(\ref{eq:#1})}
+\newcommand{\listref}[1]{\ref{listing:#1}}
+\newcommand{\chaptref}[1]{\ref{chap:#1}}
+\newcommand{\sectref}[1]{\ref{sect:#1}}
+\newcommand{\tabref}[1]{\ref{tab:#1}}
+
+\newcommand{\afigref}[1]{\aref{fig:#1}.}
+\newcommand{\aeqref}[1]{(\aref{eq:#1})}
+\newcommand{\alistref}[1]{\aref{listing:#1}.}
+\newcommand{\asectref}[1]{\aref{sect:#1}}
+\newcommand{\atabref}[1]{\aref{tab:#1}.}
+
+\newcommand{\Afigref}[1]{\Aref{fig:#1}.}
+\newcommand{\Aeqref}[1]{(\Aref{eq:#1})}
+\newcommand{\Alistref}[1]{\Aref{listing:#1}.}
+\newcommand{\Asectref}[1]{\Aref{sect:#1}}
+\newcommand{\Atabref}[1]{\Aref{tab:#1}.}
 
 %--------------------------------------------------------------------------------------
 % Hyphenation exceptions
