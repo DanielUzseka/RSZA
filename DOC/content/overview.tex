@@ -78,19 +78,18 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
 \section{mod\_i2c}
 \subsubsection{Ki és bemenetek}
     Ez a modul közvetlenül az I2C buszra csatlakozik, így rendelkezik egy kétirányú, háromállapotú SDA porttal, mely a nyitott-kollektoros működést valósítja meg, illetve egy SCL órajel kimenettel. Továbbá csatlakozik a mod\_apb modulhoz egy 32 bit széles regiszteren keresztül. Ez a regiszter tartalmaz minden információt a modul számára az I2C kommunikáció kezdeményezéséhez. A regiszter tartalmát lásd a \figref{reg} ábrán.
-
-    \begin{figure}
+    \begin{figure}[ht!]
         \centering
         \begin{tikzpicture}[scale=0.8]
             \bitrect{16}{32-\bit}
             \robits{0}{12}{}
             \robits{12}{1}{RDY}
-            \rwbits{13}{3}{DATA[0:2]}
+            \rwbits{13}{3}{DATA [0:2]}
         \end{tikzpicture}\\[2ex]
         \begin{tikzpicture}[scale=0.8]
             \bitrect{16}{16-\bit}
-            \rwbits{0}{5}{DATA[3:7]}
-            \rwbits{5}{7}{ADDR[0:6]} % endianness??
+            \rwbits{0}{5}{DATA [3:7]}
+            \rwbits{5}{7}{ADDR [0:6]} % endianness??
             \rwbits{12}{1}{R/W}
             \rwbits{13}{1}{Sp}
             \rwbits{14}{1}{R}
@@ -101,22 +100,21 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
     \end{figure}
 
 \subsubsection{Reset}
-    Ez az almodul is szinkron resetet valósít meg, az órajel felfutó élére vizsgálja a PRESETn vonalat és a regiszterének második bitjét ( \code{regData[1]} ). Ha ezek közül PRESETn-t 0-nak, a bitet pedig 1-nek találja, elengedi az SDA és SCL vonalakat, és belső állapotváltozóit és számlálóit alaphelyzetbe állítja.
+    Ez az almodul is szinkron resetet valósít meg, az órajel felfutó élére vizsgálja a PRESETn vonalat és a regiszterének második bitjét ( regData[1] ). Ha ezek közül PRESETn-t 0-nak, vagy a bitet pedig 1-nek találja, elengedi az SDA és SCL vonalakat, és belső állapotváltozóit és számlálóit alaphelyzetbe állítja.
 
 \subsubsection{Állapotok}
-\begin{tabular}{l|c|c|c|c}
-    \textbf{Állapot}    & \textbf{PADDR} & \textbf{PSELx} & \textbf{PENABLE}   & \textbf{PWRITE}    \\
-    \textbf{IDLE}           &   X            & 0              & 0                  & X              \\
-    \textbf{START}          &   X            & 1              & 0                  & X              \\
-    \textbf{STOP}           &   1            & 1              & 1                  & 0              \\
-    \textbf{WRITE\_ADDR}     &   1            & 1              & 1                  & 1              \\
-    \textbf{READ}           &   1            & 1              & 1                  & 1              \\
-    \textbf{WRITE}          &   1            & 1              & 1                  & 1              \\
-    \textbf{WAIT\_ADDR\_ACK}  &   1            & 1              & 1                  & 1              \\
-    \textbf{WAIT\_DATA\_ACK}  &   1            & 1              & 1                  & 1              \\
-    \textbf{SEND\_ACK}       &   1            & 1              & 1                  & 1
-\end{tabular}
-\subsubsection{Logika}
+% \begin{tabular}{l|c|c|c|c}
+%     \textbf{Állapot}    & \textbf{PADDR} & \textbf{PSELx} & \textbf{PENABLE}   & \textbf{PWRITE}    \\
+%     \textbf{IDLE}           &   X            & 0              & 0                  & X              \\
+%     \textbf{START}          &   X            & 1              & 0                  & X              \\
+%     \textbf{STOP}           &   1            & 1              & 1                  & 0              \\
+%     \textbf{WRITE\_ADDR}     &   1            & 1              & 1                  & 1              \\
+%     \textbf{READ}           &   1            & 1              & 1                  & 1              \\
+%     \textbf{WRITE}          &   1            & 1              & 1                  & 1              \\
+%     \textbf{WAIT\_ADDR\_ACK}  &   1            & 1              & 1                  & 1              \\
+%     \textbf{WAIT\_DATA\_ACK}  &   1            & 1              & 1                  & 1              \\
+%     \textbf{SEND\_ACK}       &   1            & 1              & 1                  & 1
+% \end{tabular}
 \begin{figure}
     \centering
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm, semithick, on grid]
@@ -133,26 +131,24 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
       \node[state]         (I) [below of=E]         {SEND\_A};
       \node[state]         (G) [below right of=I]   {STOP};
 
-
-      \path (A) edge              node {startbit} (B)
-                % edge              node {1,1,R} (C)
-            (B) edge              node {} (C)
-                % edge              node {0,1,L} (C)
-            (C) edge              node {8 == bC} (D)
-                edge [loop right]  node {8 > bC} (C)
-            (D) edge [loop right] node {div\_CLK} (D)
-                edge     [above left]         node {read} (E)
-                edge  [above right]            node {!read} (F)
-                edge [bend left]  node {no ACK} (A)
-            (E) edge   node {8 == bC} (I)
-                edge [loop left]  node {8 > bC} (E)
-            (F) edge [left]  node {8 == bC} (H)
-                edge [loop left]  node {8 > bC} (F)
-            (H) edge   node {} (G)
-                edge [loop right] node {div\_CLK} (H)
-                edge [bend right=40] node {no ACK} (A)
-            (I) edge   node {} (G);
+      \path (A) edge                 node {startbit}    (B)
+            (B) edge                 node {}            (C)
+            (C) edge                 node {8 == bC}     (D)
+                edge [loop right]    node {8 > bC}      (C)
+            (D) edge [loop right]    node {div\_CLK}    (D)
+                edge [above left]    node {read}        (E)
+                edge [above right]   node {!read}       (F)
+                edge [bend left]     node {no ACK}      (A)
+            (E) edge                 node {8 == bC}     (I)
+                edge [loop left]     node {8 > bC}      (E)
+            (F) edge [left]          node {8 == bC}     (H)
+                edge [loop left]     node {8 > bC}      (F)
+            (H) edge                 node {}            (G)
+                edge [loop right]    node {div\_CLK}    (H)
+                edge [bend right=40] node {no ACK}      (A)
+            (I) edge                 node {}            (G);
     \end{tikzpicture}
     \caption{Az I2C modul állapotátmenetei}
     \label{fig:statemachine}
 \end{figure}
+\subsubsection{Logika}
