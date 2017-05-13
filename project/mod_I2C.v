@@ -76,13 +76,13 @@ begin
 	case (states)
 		IDLE : 
 		begin
-			if (1 == regCommand[0]) //start
+			if (1 == command[0]) //start
 			begin
 				regDataOut[8] <= 0; //i2c is not ready for another communication
 				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalósítani
 				
 				//set the speed of the communication
-				if (regCommand[2] == SPEED_100kBPS) //get the speed
+				if (command[2] == SPEED_100kBPS) //get the speed
 				begin
 					div <= 1; //16Mbps to 100kbps (x2) - 80
 				end
@@ -107,7 +107,7 @@ begin
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= regDataIn[0];
+				read <= dataIn[0];
 				states <= WRITE_ADDR; //go to the next state
 			end
 			else
@@ -136,10 +136,11 @@ begin
 					if(8 == byteCounter)
 					begin
 						states <= WAIT_ADDR_ACK;
+						rSDA <= 1;
 					end
 					else
 					begin
-						rSDA <= regDataIn[7-byteCounter]; 
+						rSDA <= dataIn[7-byteCounter]; 
 						//from the 7th to the 1st bit
 						byteCounter <= byteCounter + 1;
 					end
@@ -156,19 +157,19 @@ begin
 				
 				if(1 == rSCL)
 				begin
-					if(0 == SDA)
-					begin
+					//if(0 == SDA)
+					//begin
 						byteCounter <= 0;
 						if(1 == read)
 							states <= READ;
 						else
 							states <= WRITE;
-					end
-					else
-					begin
+					//end
+					//else
+					//begin
 						//error - no Ack
-						states <= IDLE;
-					end
+						//states <= IDLE;
+					//end
 				end
 			end
 			else
@@ -220,10 +221,11 @@ begin
 					if(8 == byteCounter)
 					begin
 						states <= WAIT_DATA_ACK;
+						rSDA <= 1;
 					end
 					else
 					begin
-						rSDA <= regDataIn[15-byteCounter]; //send the data
+						rSDA <= dataIn[15-byteCounter]; //send the data
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -241,19 +243,20 @@ begin
 			begin
 				cnt <= cnt + 1;
 			end
-			if(cnt == (div/2))
+			if(cnt == (div))
 			begin
 				if(1 == rSCL)
 				begin
-					if(0 == SDA)
-					begin
+					//if(0 == SDA)
+					//begin
 						byteCounter <= 0;
 						states <= STOP;
-					end
-					else
-					begin
+						rSDA <= 0; //just for tests
+					//end
+					//else
+					//begin
 						//error - no Ack
-					end
+					//end
 				end
 			end
 		end
@@ -305,12 +308,12 @@ begin
 		
 	endcase
 	
-$display("start: %d",regCommand[0]);
+//$display("start: %d",regCommand[0]);
 			
 end
 
 always @(posedge clk)
-	if (rst | regCommand[1]) //reset
+	if (rst | command[1]) //reset
 	begin
 		states <= IDLE;
 		rSDA <= 1;
@@ -322,8 +325,8 @@ always @(posedge clk)
 pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
-assign command = regCommand;
-assign dataIn = regDataIn;
+//assign command = regCommand;
+//assign dataIn = regDataIn;
 assign dataOut = regDataOut;
 //assign SCL = rSCL ? 1'bz : 1'b0;
 // assign i2c_clk = (cnt == div);
