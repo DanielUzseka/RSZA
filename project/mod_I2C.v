@@ -22,7 +22,9 @@ module mod_I2C(
 	inout 			SDA,		// I2C Data
 	output 			SCL,		// I2C clock
 	
-	inout [31:0]	data,
+	input [31:0]	command,
+	input [31:0]	dataIn,
+	output [31:0]	dataOut,
 	input 			clk, //16MHz clk
 	input				rst
     );
@@ -33,14 +35,19 @@ reg rSCL = 1;
 
 reg i2c_clk;
 
-reg [31:0] regData;
+reg [31:0] regCommand;
 	//0: start
 	//1: reset
 	//2: speed
-	//3: read/write
-	//4-10: address
-	//11-18: data
-	//19: ready bit
+
+reg [31:0] regDataIn;
+	//0: read/write
+	//1-7: address
+	//8-15: data
+reg [31:0] regDataOut;
+	//0-7: data
+	//8: ready bit
+
 
 reg [3:0]	states			= 0;
 reg [3:0]	IDLE 				= 0;
@@ -69,13 +76,13 @@ begin
 	case (states)
 		IDLE : 
 		begin
-			if (1 == regData[0]) //start
+			if (1 == regCommand[0]) //start
 			begin
-				regData[19] <= 0; //i2c is not ready for another communication
-				regData[0] <= 0; //clear start bit
+				regDataOut[8] <= 0; //i2c is not ready for another communication
+				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalósítani
 				
 				//set the speed of the communication
-				if (regData[2] == SPEED_100kBPS) //get the speed
+				if (regCommand[2] == SPEED_100kBPS) //get the speed
 				begin
 					div <= 1; //16Mbps to 100kbps (x2) - 80
 				end
@@ -100,8 +107,8 @@ begin
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= regData[3];
-				states = WRITE_ADDR; //go to the next state
+				read <= regDataIn[0];
+				states <= WRITE_ADDR; //go to the next state
 			end
 			else
 			begin
@@ -132,8 +139,8 @@ begin
 					end
 					else
 					begin
-						rSDA <= regData[10-byteCounter]; 
-						//from the 10th to the 3rd bit
+						rSDA <= regDataIn[7-byteCounter]; 
+						//from the 7th to the 1st bit
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -160,6 +167,7 @@ begin
 					else
 					begin
 						//error - no Ack
+						states <= IDLE;
 					end
 				end
 			end
@@ -188,7 +196,7 @@ begin
 			begin
 				if(1 == rSCL)
 				begin
-					regData[18-byteCounter] <= SDA; //save the incoming data
+					regDataOut[7-byteCounter] <= SDA; //save the incoming data
 					byteCounter <= byteCounter + 1;
 				end
 			end
@@ -215,7 +223,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= regData[18-byteCounter]; //send the data
+						rSDA <= regDataIn[15-byteCounter]; //send the data
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -297,12 +305,12 @@ begin
 		
 	endcase
 	
-//	$display("state: %d, i: %d",states, byteCounter);
+$display("start: %d",regCommand[0]);
 			
 end
 
 always @(posedge clk)
-	if (rst | regData[1]) //reset
+	if (rst | regCommand[1]) //reset
 	begin
 		states <= IDLE;
 		rSDA <= 1;
@@ -311,10 +319,12 @@ always @(posedge clk)
 	end
 
 // Open Drain assignment
-//pullup(SDA); //for simulation only!
+pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
-assign data = regData;
+assign command = regCommand;
+assign dataIn = regDataIn;
+assign dataOut = regDataOut;
 //assign SCL = rSCL ? 1'bz : 1'b0;
 // assign i2c_clk = (cnt == div);
 

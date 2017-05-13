@@ -34,31 +34,36 @@ module I2C_test;
 
 	// Bidirs
 	wire SDA;
-	reg data;
+	reg [31:0] dataIn;
+	reg [31:0] dataOut;
+	reg [31:0] command;
 
 	// Instantiate the Unit Under Test (UUT)
 	mod_I2C uut (
 		.SDA(SDA), 
 		.SCL(SCL), 
-		.data(data), 
+		.dataIn(dataIn), 
+		.dataOut(dataOut),
 		.clk(clk), 
-		.rst(rst)
+		.rst(rst),
+		.command(command)
 	);
 
 	initial begin
 		// Initialize Inputs
 		//data = 0;
 		clk = 0;
-		rst = 0;
-
+		rst = 1;
+		
 
 		// Wait 100 ns for global reset to finish
 		#100;
 		
-		#10 rst = 1;
-		#30 rst = 0;
-		
-		#10 data <= 0'b00000000000010101010010101010001;
+		rst = 0;
+		#50;
+		command <= 0'b001;
+		#10;
+		dataIn <= 0'b0101010010101010;
 		
 		//#296 SDA = 0;
 		//#32 SDA = 0'bz;
