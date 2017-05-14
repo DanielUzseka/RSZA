@@ -76,10 +76,9 @@ always @ (posedge clk) begin	// clocked
 			end
 		end
 	end
-	
-	prdata <= i2cdata[`dataWidth-1:0];
 	readyBit <= i2cdata[`dataWidth];
-
 end
+
+assign prdata = i2cdata[`dataWidth-1:0];
 
 endmodule
