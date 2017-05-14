@@ -57,7 +57,8 @@ apb_mod inst_APB (
     .pwrite(PWRITE), 
     .psel(PSELx), 
     .penable(PENABLE), 
-    .perdata(perdata)
+    .perdata(perdata),
+	 .i2cdata(dataOut)
     );
 	 
 // Instantiate the module

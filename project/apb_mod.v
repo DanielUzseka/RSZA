@@ -31,7 +31,8 @@ module apb_mod
     input pwrite,
     input psel,
     input penable,
-	 output [`dataWidth-1:0] perdata
+	 output [`dataWidth-1:0] perdata,
+	 input [`dataWidth:0] i2cdata
     );
 
 /*reg [7:0] clk_counter;
@@ -40,6 +41,7 @@ initial clk_counter = 0;*/
 reg [1:0] apb_status;
 reg [`dataWidth:0] regprdata;
 reg [`dataWidth:0] regperdata;
+reg readyBit;
 
 assign prdata = regprdata;
 assign perdata = regperdata;
@@ -74,6 +76,9 @@ always @ (posedge clk) begin	// clocked
 			end
 		end
 	end
+	
+	prdata <= i2cdata[`dataWidth-1:0];
+	readyBit <= i2cdata[`dataWidth];
 
 end
 
