@@ -65,11 +65,12 @@ mod_I2C instance_name (
     .SDA(SDA), 
     .SCL(SCL), 
     .command(command), 
-    .address(address), 
-    .data(data), 
+    //.address(address), 
+    .dataIn(dataIn),
+	 .dataOut(dataOut),
     .clk(clk), 
-    .rst(rst), 
-    .ready(ready)
+    .rst(rst) 
+    //.ready(ready)
     );
 	 
 endmodule

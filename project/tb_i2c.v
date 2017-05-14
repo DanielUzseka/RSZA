@@ -25,7 +25,7 @@
 module tb_i2c;
 
 	// Inputs
-	reg [31:0] r_command;
+	//reg [31:0] r_command;
 	reg [31:0] dataIn;
 	reg clk;
 	reg rst;
@@ -41,7 +41,7 @@ module tb_i2c;
 	mod_I2C uut (
 		.SDA(SDA), 
 		.SCL(SCL), 
-		.command(r_command), 
+		//.command(r_command), 
 		.dataIn(dataIn), 
 		.dataOut(dataOut), 
 		.clk(clk), 
@@ -50,7 +50,7 @@ module tb_i2c;
 
 	initial begin
 		// Initialize Inputs
-		r_command = 0;
+		//r_command = 0;
 		dataIn = 0;
 		clk = 0;
 		rst = 0;
@@ -61,13 +61,13 @@ module tb_i2c;
 		// Add stimulus here
 		rst = 0;
 		#50;
-		r_command <= 0'b001;
-		#10;
-		dataIn <= 0'b0101010010101010;
+		//r_command <= 0'b001;
+		//#10;
+		dataIn <= 0'b0101010010101010001;
 		
 		//#436 SDA <= 0;
 		#300;
-		r_command <= 0'b0;
+		dataIn <= 0'b0101010010101010000;
 
 	end
 	
