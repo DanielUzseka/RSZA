@@ -64,7 +64,7 @@ apb_mod inst_APB (
 mod_I2C instance_name (
     .SDA(SDA), 
     .SCL(SCL), 
-    .command(command), 
+    //.command(command), 
     //.address(address), 
     .dataIn(dataIn),
 	 .dataOut(dataOut),

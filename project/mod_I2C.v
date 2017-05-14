@@ -46,16 +46,16 @@ reg [31:0] regDataOut;
 	//8: ready bit
 
 
-reg [3:0]	states			= 0;
-reg [3:0]	IDLE 				= 0;
-reg [3:0]	START 			= 1;
-reg [3:0] 	STOP 				= 2;
-reg [3:0] 	WRITE_ADDR		= 3;
-reg [3:0]	READ				= 4;
-reg [3:0]	WRITE				= 5;
-reg [3:0]	WAIT_ADDR_ACK 	= 6;
-reg [3:0] 	WAIT_DATA_ACK	= 7;
-reg [3:0]	SEND_ACK			= 8;
+reg 		 [3:0]	states			= 0;
+parameter [3:0]	IDLE 				= 0;
+parameter [3:0]	START 			= 1;
+parameter [3:0] 	STOP 				= 2;
+parameter [3:0] 	WRITE_ADDR		= 3;
+parameter [3:0]	READ				= 4;
+parameter [3:0]	WRITE				= 5;
+parameter [3:0]	WAIT_ADDR_ACK 	= 6;
+parameter [3:0] 	WAIT_DATA_ACK	= 7;
+parameter [3:0]	SEND_ACK			= 8;
 
 reg SPEED_100kBPS		= 0;
 reg SPEED_400kBPS		= 1;
@@ -70,13 +70,23 @@ reg read;
 
 always @(posedge clk) 
 begin
+	if (rst | dataIn[1]) //reset
+	begin
+		states <= IDLE;
+		rSDA <= 1;
+		rSCL <= 1;
+		cnt <= 0;
+	end
+	else
+	begin
 	case (states)
 		IDLE : 
 		begin
 			if (1 == dataIn[0]) //start
 			begin
 				regDataOut[8] <= 0; //i2c is not ready for another communication
-				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalï¿½sï¿½ta				
+				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalósítani
+				
 				//set the speed of the communication
 				if (dataIn[2] == SPEED_100kBPS) //get the speed
 				begin
@@ -302,24 +312,13 @@ begin
 				end
 			end
 		end
-		
 	endcase
-	
-//$display("start: %d",regCommand[0]);
-			
+	end
 end
 
-always @(posedge clk)
-	if (rst | dataIn[1]) //reset
-	begin
-		states <= IDLE;
-		rSDA <= 1;
-		rSCL <= 1;
-		cnt <= 0;
-	end
 
 // Open Drain assignment
-pullup(SDA); //for simulation only!
+//pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
 //assign command = regCommand;
