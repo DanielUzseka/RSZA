@@ -10,14 +10,14 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="18" />
    <wvobject fp_name="/tb_top/PCLK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">PCLK</obj_property>
       <obj_property name="ObjectShortName">PCLK</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/PADDR" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">PADDR[7:0]</obj_property>
-      <obj_property name="ObjectShortName">PADDR[7:0]</obj_property>
+      <obj_property name="ElementShortName">PADDR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PADDR[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/PWRITE" type="logic" db_ref_id="1">
@@ -46,59 +46,48 @@
       <obj_property name="ElementShortName">PRESETn</obj_property>
       <obj_property name="ObjectShortName">PRESETn</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/uut/amp_instance/per_addr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">per_addr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">per_addr[31:0]</obj_property>
+   <wvobject fp_name="/tb_top/uut/A2I" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">A2I[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A2I[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/uut/amp_instance/per_data" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">per_data[31:0]</obj_property>
-      <obj_property name="ObjectShortName">per_data[31:0]</obj_property>
+   <wvobject fp_name="/tb_top/uut/I2A" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">I2A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I2A[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/uut/amp_instance/mem" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">mem[7:0,31:0]</obj_property>
-      <obj_property name="ObjectShortName">mem[7:0,31:0]</obj_property>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/dataIn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dataIn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataIn[31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[7]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[7,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[7,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[6]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[6,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[6,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[5]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[5,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[5,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[4]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[4,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[4,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[3]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[3,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[3,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[2]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[2,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[2,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[1]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[1,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[1,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_top/uut/amp_instance/mem[0]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[0,31:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[0,31:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
-      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/dataIn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dataIn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataIn[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/states" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">states[3:0]</obj_property>
+      <obj_property name="ObjectShortName">states[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/SCL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SCL</obj_property>
+      <obj_property name="ObjectShortName">SCL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/SDA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SDA</obj_property>
+      <obj_property name="ObjectShortName">SDA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/regDataIn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">regDataIn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regDataIn[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/regDataOut" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">regDataOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regDataOut[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_I2C/cnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt[7:0]</obj_property>
    </wvobject>
 </wave_config>

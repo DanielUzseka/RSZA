@@ -25,17 +25,22 @@
 `include "macros.vh"
 
 module tb_top();
+	
 	// Inputs
 	reg PCLK;
 	reg PRESETn;
-	reg [`addrWidth-1:0] PADDR;
+	reg [31:0] PADDR;
 	reg PSELx;
 	reg PENABLE;
 	reg PWRITE;
-	reg [`dataWidth-1:0] PWDATA;
+	reg [31:0] PWDATA;
 
 	// Outputs
-	wire [`dataWidth-1:0] PRDATA;
+	wire [31:0] PRDATA;
+	wire SCL;
+
+	// Bidirs
+	wire SDA;
 
 	// Instantiate the Unit Under Test (UUT)
 	mod_top uut (
@@ -46,7 +51,9 @@ module tb_top();
 		.PENABLE(PENABLE), 
 		.PWRITE(PWRITE), 
 		.PRDATA(PRDATA), 
-		.PWDATA(PWDATA)
+		.PWDATA(PWDATA), 
+		.SDA(SDA), 
+		.SCL(SCL)
 	);
 
 	initial begin
@@ -69,7 +76,7 @@ module tb_top();
 		#80 PRESETn = 1;
 		
 		// kezdocimre 1 beirasa
-		#40 PADDR = 0'h80000000; PWDATA = 1;
+		#40 PADDR = 32'h80000000; PWDATA = 32'b0101010010101010001;
 		#5 PWRITE = 1;
 		#10 PSELx = 1;
 		#25 //penable csak kovetkezo ciklusban!
@@ -94,7 +101,7 @@ module tb_top();
 		
 		//
 		// ervenytelen cimbe iras
-		#10 PADDR = 0'h80000004;
+		#10 PADDR = 32'h80000004;
 		#10 PWDATA = 144;
 		#10 PSELx = 1;
 		#10 PENABLE = 1;

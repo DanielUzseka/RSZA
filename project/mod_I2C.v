@@ -41,6 +41,7 @@ reg rSCL = 1;
 
 reg i2c_clk;
 
+reg [31:0] regDataIn;
 reg [31:0] regDataOut;
 	//0-7: data
 	//8: ready bit
@@ -57,8 +58,8 @@ parameter [3:0]	WAIT_ADDR_ACK 	= 6;
 parameter [3:0] 	WAIT_DATA_ACK	= 7;
 parameter [3:0]	SEND_ACK			= 8;
 
-reg SPEED_100kBPS		= 0;
-reg SPEED_400kBPS		= 1;
+parameter SPEED_100kBPS		= 0;
+parameter SPEED_400kBPS		= 1;
 
 reg [3:0]	byteCounter = 0;	
 
@@ -70,12 +71,13 @@ reg read;
 
 always @(posedge clk) 
 begin
-	if (rst | dataIn[1]) //reset
+	if (!rst | dataIn[1]) //reset
 	begin
 		states <= IDLE;
 		rSDA <= 1;
 		rSCL <= 1;
 		cnt <= 0;
+		regDataOut <= 32'b0;
 	end
 	else
 	begin
@@ -84,17 +86,18 @@ begin
 		begin
 			if (1 == dataIn[0]) //start
 			begin
+				regDataIn <= dataIn;
 				regDataOut[8] <= 0; //i2c is not ready for another communication
-				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalósítani
+				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalstani
 				
 				//set the speed of the communication
-				if (dataIn[2] == SPEED_100kBPS) //get the speed
+				if (regDataIn[2] == SPEED_100kBPS) //get the speed
 				begin
-					div <= 1; //16Mbps to 100kbps (x2) - 80
+					div <= 5; //16Mbps to 100kbps (x2) - 80
 				end
 				else
 				begin
-					div <= 0; //16Mbps to 400kbps (x2) - 20
+					div <= 3; //16Mbps to 400kbps (x2) - 20
 				end
 				
 				cnt <= 0;
@@ -106,14 +109,14 @@ begin
 		begin
 			rSDA <= 0; //pull down the wire
 			
-			if (cnt == div) //divided clock -> toggle the scl
+			if (cnt == div>>1) //divided clock -> toggle the scl
 			begin
 				cnt <= 0;
 				
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= dataIn[3];
+				read <= regDataIn[3];
 				states <= WRITE_ADDR; //go to the next state
 			end
 			else
@@ -146,7 +149,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= dataIn[10-byteCounter]; 
+						rSDA <= regDataIn[10-byteCounter]; 
 						//from the 7th to the 1st bit
 						byteCounter <= byteCounter + 1;
 					end
@@ -231,7 +234,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= dataIn[18-byteCounter]; //send the data
+						rSDA <= regDataIn[18-byteCounter]; //send the data
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -318,10 +321,11 @@ end
 
 
 // Open Drain assignment
-//pullup(SDA); //for simulation only!
+pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
 //assign command = regCommand;
+
 //assign dataIn = regDataIn;
 assign dataOut = regDataOut;
 //assign SCL = rSCL ? 1'bz : 1'b0;
