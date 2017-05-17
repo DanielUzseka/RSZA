@@ -43,11 +43,19 @@ reg i2c_clk;
 
 reg [31:0] regDataIn;
 reg [31:0] regDataOut;
-	//0-7: data
-	//8: ready bit
+
+	
+parameter [31:0] bSTART = 0;
+parameter [31:0] bRESET = 1;
+parameter [31:0] bSPEED = 2;
+parameter [31:0] bRW 	= 3;
+parameter [31:0] bADDR 	= 10;
+parameter [31:0] bDATA 	= 18;
+parameter [31:0] bRDY	= 19;
 
 
-reg 		 [3:0]	states			= 0;
+
+reg 		 [3:0]	states;
 parameter [3:0]	IDLE 				= 0;
 parameter [3:0]	START 			= 1;
 parameter [3:0] 	STOP 				= 2;
@@ -58,8 +66,8 @@ parameter [3:0]	WAIT_ADDR_ACK 	= 6;
 parameter [3:0] 	WAIT_DATA_ACK	= 7;
 parameter [3:0]	SEND_ACK			= 8;
 
-parameter SPEED_100kBPS		= 0;
-parameter SPEED_400kBPS		= 1;
+parameter SPEED_100kBPS		= 1'b0;
+parameter SPEED_400kBPS		= 1'b1;
 
 reg [3:0]	byteCounter = 0;	
 
@@ -78,24 +86,24 @@ begin
 		rSCL <= 1;
 		cnt <= 0;
 		regDataOut <= 32'b0;
+		regDataOut[bRDY] <= 1;
 	end
 	else
 	begin
 	case (states)
 		IDLE : 
 		begin
-			if (1 == dataIn[0]) //start
+			if (1 == dataIn[bSTART]) //start
 			begin
 				regDataIn <= dataIn;
-				regDataOut[8] <= 0; //i2c is not ready for another communication
-				//regData[0] <= 0; //clear start bit --- APB oldalon kell megvalstani
+				regDataOut[bRDY] <= 0; //i2c is not ready for another communication
 				
 				//set the speed of the communication
-				if (regDataIn[2] == SPEED_100kBPS) //get the speed
+				if (dataIn[bSPEED] == SPEED_100kBPS) //get the speed
 				begin
 					div <= 5; //16Mbps to 100kbps (x2) - 80
 				end
-				else
+				else if (dataIn[bSPEED] == SPEED_400kBPS)
 				begin
 					div <= 3; //16Mbps to 400kbps (x2) - 20
 				end
@@ -103,20 +111,24 @@ begin
 				cnt <= 0;
 				states <= START;
 			end
+			else
+			begin
+				regDataOut[bRDY] <= 1; //ready
+			end
 		end
 		
 		START :
 		begin
 			rSDA <= 0; //pull down the wire
 			
-			if (cnt == div>>1) //divided clock -> toggle the scl
+			if (cnt == div) //divided clock -> toggle the scl
 			begin
 				cnt <= 0;
 				
 				rSCL <= ~rSCL; //pull scl down
 				
 				byteCounter <= 0;
-				read <= regDataIn[3];
+				read <= regDataIn[bRW];
 				states <= WRITE_ADDR; //go to the next state
 			end
 			else
@@ -149,7 +161,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= regDataIn[10-byteCounter]; 
+						rSDA <= regDataIn[bADDR-byteCounter]; 
 						//from the 7th to the 1st bit
 						byteCounter <= byteCounter + 1;
 					end
@@ -166,7 +178,7 @@ begin
 				
 				if(1 == rSCL)
 				begin
-					if(1 == SDA) //for tests, otherwise: 0
+					if(0 == SDA) //for tests, otherwise: 0
 					begin
 						byteCounter <= 0;
 						if(1 == read)
@@ -206,7 +218,7 @@ begin
 			begin
 				if(1 == rSCL)
 				begin
-					regDataOut[7-byteCounter] <= SDA; //save the incoming data
+					regDataOut[bDATA-byteCounter] <= SDA; //save the incoming data
 					byteCounter <= byteCounter + 1;
 				end
 			end
@@ -234,7 +246,7 @@ begin
 					end
 					else
 					begin
-						rSDA <= regDataIn[18-byteCounter]; //send the data
+						rSDA <= regDataIn[bDATA-byteCounter]; //send the data
 						byteCounter <= byteCounter + 1;
 					end
 				end
@@ -256,7 +268,7 @@ begin
 			begin
 				if(1 == rSCL)
 				begin
-					if(1 == SDA) //for tests, otherwise: 0
+					if(0 == SDA) //for tests, otherwise: 0
 					begin
 						byteCounter <= 0;
 						states <= STOP;

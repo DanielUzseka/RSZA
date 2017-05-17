@@ -46,7 +46,7 @@ parameter READ     = 2'b10;
 parameter WRITE    = 2'b11;
 
 assign out_perdata = (WRITE == apb_status)? pwdata : 'bz;
-assign prdata = (READ == apb_status)? in_perdata : prdata;
+assign prdata = (READ == apb_status)? in_perdata : 'bz;
 
 
 //always @(apb_status) begin	// combinatorial block
