@@ -6,7 +6,7 @@
 Féléves munkánk során egy perifériaillesztő modult valósítottunk meg System Verilog nyelven. Az illesztő az ARM\texttrademark Ltd. AMBA\texttrademark-APB rendszerbusza, és az I2C busz között teremt kapcsolatot. Ezen két buszt ismertetjük a továbbiakban.
 
 \section{AMBA-APB}{
-    Az Advanced Microcontroller Bus Architecture egy nyílt szabvány, amely chipen belüli kommunikációs összeköttetéseket definiál. Ennek a szabványnak része az Advanced Peripheral Bus (APB), amely alacsony sávszélességű, kis komplexitású, és minimális fogyasztású.
+    Az Advanced Microcontroller Bus Architecture egy nyílt szabvány, amely chipen belüli kommunikációs összeköttetéseket definiál. Ennek a szabványnak része az Advanced Peripheral Bus (APB)\cite{APB} , amely alacsony sávszélességű, kis komplexitású, és minimális fogyasztású.
 
     \begin{table}[ht!]
         \begin{tabular}{l|p{0.7\textwidth}}
@@ -36,7 +36,7 @@ Féléves munkánk során egy perifériaillesztő modult valósítottunk meg Sys
 }
 
 \section{I2C} {
-    Az Inter-Integrated Circuit (vagy I2C, I\textsuperscript{2}C, esetleg IIC) egy multi-master, multi-slave, single-ended, félduplex soros kommunikációs busz.
+    Az Inter-Integrated Circuit (vagy I2C, I\textsuperscript{2}C, esetleg IIC) egy multi-master, multi-slave, single-ended, félduplex soros kommunikációs busz.\cite{I2C}
     Két, nyitott kollektoros (open-drain) vezetéket használ a kétirányú kommunikációhoz, ezek az \emph{SDA} adatvonal és \emph{SCL} órajelvezeték. Fizikai kialakításból adódóan a vezetékeket ellenállásokon keresztül magas logikai (3V3, 5V, 1V8 stb.) feszültségre kell felhúzni. A buszra csatlakozó eszközök a vezetékeket "kényszeríteni" tehát csak lefelé tudják. Ez teszi lehetővé a multi-master struktúrához szükséges kiválasztást és arbitrációt, továbbá mivel különálló kiválasztó jelek (slave-select) nem állnak rendelkezésre, így az üzeneteket címezni kell. Egy üzenet felépítése látható az \figref{I2Cmessage} ábrán.\footnote{Forrás: \tiny\\\url{https://i2.wp.com/maxembedded.files.wordpress.com/2014/02/data-transfer-timing-diagram.png}}
 
     \begin{figure}[ht!]
