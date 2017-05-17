@@ -16,7 +16,7 @@ Féléves munkánk során egy perifériaillesztő modult valósítottunk meg Sys
             \textbf{PSELx}      & Slave-select, minden egységhez tartozik egy. Kiválasztja az adott slave egységet. \\[3ex]
             \textbf{PENABLE}    & Engedélyező jel, az átviteli ciklus második szakaszát jelzi. \\[3ex]
             \textbf{PWRITE}     & Irányjelző, magas értéke írást, alacsony értéke olvasást jelent. \\[3ex]
-            \textbf{PWDATA}     & Adatbusz, maximum 32 bit széles, mindíg a perifériabusz bridge hajtja. \\[3ex]
+            \textbf{PWDATA}     & Adatbusz, maximum 32 bit széles, mindig a perifériabusz bridge hajtja. \\[3ex]
             \textbf{PRDATA}     & Adatbusz, maximum 32 bit széles, a slave egység hajtja az olvasási ciklusban.
         \end{tabular}
         \caption{Az APB busz jelei.}
@@ -45,7 +45,7 @@ Féléves munkánk során egy perifériaillesztő modult valósítottunk meg Sys
         \label{fig:I2Cmessage}
     \end{figure}
 
-    Az \emph{SCL} órajelet mindíg a \emph{master} szolgáltatja a buszra csatlakozó eszközöknek.
+    Az \emph{SCL} órajelet mindig a \emph{master} szolgáltatja a buszra csatlakozó eszközöknek.
 
     Minden üzenet a \emph{START} feltétellel (az SCL magas értéke mellett SDA lefutó éle) kezdődik és a \emph{STOP} feltétellel (az SCL magas értéke mellett SDA felfutó éle) végződik. Ezek speciális feltételek, az üzenet belsejében nem fordulhatnak elő, mivel SDA csak SCL alacsony értéke mellett változhat.
 
