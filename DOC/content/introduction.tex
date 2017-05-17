@@ -23,22 +23,21 @@ Féléves munkánk során egy perifériaillesztő modult valósítottunk meg Sys
         \label{tab:APBsig}
     \end{table}
 
-    A busz jeleinek áttekintése után nézzünk egy írási ciklust a buszon. Minden átviteli ciklus két szakaszból áll, egy \emph{setup} és egy \emph{access} fázisból, ezen fázisok PCLK felfutó élére kezdődnek, ahogy az az \figref{APBtransfers} ábrán megfigyelhető. A setup fázisban a híd eszköz (APB master) a PADDR buszra kiadja a címzett periféria címét, a PWRITE jelet az írásnak megfelelően magas értékűre állítja. A slave-hez tartozó PSEL vonalat is magas értékre állítja be, továbbá a PWDATA buszra kapuzza az írni kívánt adatot. Ebben a fázisban PENABLE alacsony értékű, így a slave eszköznek lehetősége van felkészülni az átvitelre. PCLK következő felfutó élére a PENABLE vonalat logikai 1 értékűre állítja, és ezzel a buszciklus végéig bezárólag a slave eszköz mintát vesz a PWDATA buszról, amivel lezárul az átvitel, PSEL, PWRITE és PENABLE visszaállításra kerül a master által.
+    A busz jeleinek áttekintése után nézzünk egy írási ciklust a buszon. Minden átviteli ciklus két szakaszból áll, egy \emph{setup} és egy \emph{access} fázisból, ezen fázisok PCLK felfutó élére kezdődnek, ahogy az az \figref{APBtransfers} ábrán
+    \footnote{Források: \tiny\\\url{http://infocenter.arm.com/help/topic/com.arm.doc.ddi0367b/graphics/apb_write_transfer_no_wait_states.svg}, \\ \url{http://infocenter.arm.com/help/topic/com.arm.doc.ddi0367b/graphics/apb_read_transfer_no_wait_states.svg}} megfigyelhető. A setup fázisban a híd eszköz (APB master) a PADDR buszra kiadja a címzett periféria címét, a PWRITE jelet az írásnak megfelelően magas értékűre állítja. A slave-hez tartozó PSEL vonalat is magas értékre állítja be, továbbá a PWDATA buszra kapuzza az írni kívánt adatot. Ebben a fázisban PENABLE alacsony értékű, így a slave eszköznek lehetősége van felkészülni az átvitelre. PCLK következő felfutó élére a PENABLE vonalat logikai 1 értékűre állítja, és ezzel a buszciklus végéig bezárólag a slave eszköz mintát vesz a PWDATA buszról, amivel lezárul az átvitel, PSEL, PWRITE és PENABLE visszaállításra kerül a master által.
 
-    Az olvasás ciklus a vezérlőjeleket tekintve csak PWRITE értékében tér el. Ha az APB master olvasási ciklust kezdeményez, a PWRITE jelet logikai alacsony értékűre állítja a setup fázisban. Az access fázisban szintén kiadja a PENABLE jelet, mire a slave eszköz a megcímzett regiszterét a PRDATA buszra kapuzza. Az előzőekhez hasonlóan, a master vezérlőjeleket visszaveszi a ciklus begejeztével.
-
+    Az olvasás ciklus a vezérlőjeleket tekintve csak PWRITE értékében tér el. Ha az APB master olvasási ciklust kezdeményez, a PWRITE jelet logikai alacsony értékűre állítja a setup fázisban. Az access fázisban szintén kiadja a PENABLE jelet, mire a slave eszköz a megcímzett regiszterét a PRDATA buszra kapuzza. Az előzőekhez hasonlóan, a master vezérlőjeleket visszaveszi a ciklus befejeztével.
     \begin{figure}[ht!]
         \includegraphics[width = 0.5\textwidth]{figures/apb_write_transfer_no_wait_states}
         \includegraphics[width = 0.5\textwidth]{figures/apb_read_transfer_no_wait_states}
         \caption{Egy írási és olvasási ciklus időzítési viszonyai az APB buszon.}
         \label{fig:APBtransfers}
     \end{figure}
-
 }
 
 \section{I2C} {
     Az Inter-Integrated Circuit (vagy I2C, I\textsuperscript{2}C, esetleg IIC) egy multi-master, multi-slave, single-ended, félduplex soros kommunikációs busz.
-    Két, nyitott kollektoros (open-drain) vezetéket használ a kétirányú kommunikációhoz, ezek az \emph{SDA} adatvonal és \emph{SCL} órajelvezeték. Fizikai kialakításból adódóan a vezetékeket ellenállásokon keresztül magas logikai (3V3, 5V, 1V8 stb.) feszültségre kell felhúzni. A buszra csatlakozó eszközök a vezetékeket "kényszeríteni" tehát csak lefelé tudják. Ez teszi lehetővé a multi-master struktúrához szükséges kiválasztást és arbitrációt, továbbá mivel különálló kiválasztó jelek (slave-select) nem állnak rendelkezésre, így az üzeneteket címezni kell. Egy üzenet felépítése látható az \figref{I2Cmessage} ábrán.
+    Két, nyitott kollektoros (open-drain) vezetéket használ a kétirányú kommunikációhoz, ezek az \emph{SDA} adatvonal és \emph{SCL} órajelvezeték. Fizikai kialakításból adódóan a vezetékeket ellenállásokon keresztül magas logikai (3V3, 5V, 1V8 stb.) feszültségre kell felhúzni. A buszra csatlakozó eszközök a vezetékeket "kényszeríteni" tehát csak lefelé tudják. Ez teszi lehetővé a multi-master struktúrához szükséges kiválasztást és arbitrációt, továbbá mivel különálló kiválasztó jelek (slave-select) nem állnak rendelkezésre, így az üzeneteket címezni kell. Egy üzenet felépítése látható az \figref{I2Cmessage} ábrán.\footnote{Forrás: \tiny\\\url{https://i2.wp.com/maxembedded.files.wordpress.com/2014/02/data-transfer-timing-diagram.png}}
 
     \begin{figure}[ht!]
         \includegraphics[width = \textwidth]{figures/i2ctiming}

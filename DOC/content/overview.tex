@@ -49,7 +49,7 @@ Mint az a \figref{modtop} ábrán is látszik, modulunk (\emph{mod\_top}) 2 almo
 Az APB modul a rendszerbusz vezérlőjeleit dekódolja, és továbbítja a szükséges adatokat az I2C modulnak.
 Az I2C modul a rendelkezésére bocsátott adatokból lefolytatja soros kommunikációt.
 
-A továbbiakban tekintsük át részletesebben az almodulok felépítését. A modulokhoz, és a későbbiekben a tesztek kapcsolódó forráskódok a dokumentum végén, a függelékben találhatóak.
+A továbbiakban tekintsük át részletesebben az almodulok felépítését. A modulokhoz, és a későbbiekben a tesztekhez kapcsolódó forráskódok a dokumentum végén, a függelékben találhatóak.
 
 \section{mod\_top}
 
@@ -72,15 +72,13 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
     \end{tabular}
 
 \subsubsection{Logika}
-    A vezérlőjelek dekódolása alapján, READ állapotban a ki-bemeneti regiszterét a PRDATA buszra kapuzza, WRITE állapotban a PWDATA busz tartalmát betölti ugyanebbe a regiszterbe.
+    A vezérlőjelek dekódolása alapján, READ állapotban az I2C modullal "közös" ki-bemeneti regiszterét a PRDATA buszra kapuzza, WRITE állapotban a PWDATA busz tartalmát betölti ugyanebbe a regiszterbe. IDLE állapotban nagyimpedanciát kapcsol a PRDATA buszra, hogy a rendszer többi egységét ne zavarja.
 
 
 \section{mod\_i2c}
 \subsubsection{Ki és bemenetek}
-    Ez a modul közvetlenül az I2C buszra csatlakozik, így rendelkezik egy kétirányú, háromállapotú SDA porttal, mely a nyitott-kollektoros működést valósítja meg, illetve egy SCL órajel kimenettel. Továbbá csatlakozik a mod\_apb modulhoz két 32 bit széles regiszteren keresztül. Az egyik regiszter tartalmaz minden információt a modul számára az I2C kommunikáció kezdeményezéséhez. Ezen regiszter tartalmát lásd a \figref{reg_in} ábrán. Az \textit{S} a start, az \textit{R} a reset, az \textit{Sp} a sebesség, míg az \textit{R/W} az írás/olvasás bitet jelöli. Ezen kívül a bájtban található az I2C kommunikáció címzettjének címe (7 bit - \textit{ADDR}), valamint a 8 bitnyi üzenet(\textit{DATA}).
-    
     A start bit 1 értékbe állításakor elindul a kommunikáció (!!!!!!). A sebességet tároló bit 1-re állításával az I2C kommunikácó órajele (!!!!!) kHz-es, míg 0-ra állításával (!!!!!!) kHz-es frekvenciával zajlik le. Az írás/olvasás bit 1 értéke esetén a perifériától való olvasás valósul meg, míg fordított esetben ennek az ellenkezője. 
-    
+    Ez a modul közvetlenül az I2C buszra csatlakozik, így rendelkezik egy kétirányú, háromállapotú SDA porttal, mely a nyitott-kollektoros működést valósítja meg, illetve egy SCL órajel kimenettel. Továbbá csatlakozik a mod\_apb modulhoz egy 32 bit széles regiszteren keresztül. Ez a regiszter tartalmaz minden információt a modul számára az I2C kommunikáció kezdeményezéséhez. A regiszter kiosztását és tartalmát lásd a \figref{reg} ábrán.
     \begin{figure}[ht!]
         \centering
         \begin{tikzpicture}[scale=0.8]
@@ -98,8 +96,8 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
             \rwbits{14}{1}{R}
             \rwbits{15}{1}{S}
         \end{tikzpicture}
-        \caption{}
-        \label{fig:reg_in}
+        \caption{A kommunikációs regiszter kiosztása.}
+        \label{fig:reg}
     \end{figure}
 
     \begin{figure}[ht!]
@@ -166,3 +164,4 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
     \label{fig:statemachine}
 \end{figure}
 \subsubsection{Logika}
+A modul állapotátmenetei, és mechanizmusa látható a \figref{statemachine} ábrán. 
