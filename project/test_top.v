@@ -4,9 +4,9 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   08:42:21 04/07/2017
+// Create Date:   07:43:03 05/15/2017
 // Design Name:   mod_top
-// Module Name:   F:/RSZA/HW/tb_top.v
+// Module Name:   /home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/test_top.v
 // Project Name:  HW
 // Target Device:  
 // Tool versions:  
@@ -22,10 +22,8 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-`include "macros.vh"
+module test_top;
 
-module tb_top();
-	
 	// Inputs
 	reg PCLK;
 	reg PRESETn;
@@ -59,7 +57,7 @@ module tb_top();
 	initial begin
 		// Initialize Inputs
 		PCLK = 0;
-		PRESETn = 1;
+		PRESETn = 0;
 		PADDR = 0;
 		PSELx = 0;
 		PENABLE = 0;
@@ -67,76 +65,11 @@ module tb_top();
 		PWDATA = 0;
 
 		// Wait 100 ns for global reset to finish
-		#50;
+		#100;
         
 		// Add stimulus here
-		
-		//reset
-		#10 PRESETn = 0;
-		#80 PRESETn = 1;
-		
-		// kezdocimre 1 beirasa
-		#40 PADDR = 32'h80000000; PWDATA = 32'b0101010010101010001;
-		#5 PWRITE = 1;
-		#10 PSELx = 1;
-		#25 //penable csak kovetkezo ciklusban!
-		#10 PENABLE = 1;		
-		#50
 
-		//to idle
-		#10 PENABLE = 0; PSELx = 0;
-		
-//		#40
-//		
-//		kiolvasas
-//		#10 PWRITE = 0;
-//		#10 PSELx = 1;
-//		#10 PENABLE = 1;
-//		
-//		#40
-//		
-//		to idle
-//		#10 PENABLE = 0;
-//		#10 PSELx = 0;
-//		
-//		
-//		 ervenytelen cimbe iras
-//		#10 PADDR = 32'h80000004;
-//		#10 PWDATA = 144;
-//		#10 PSELx = 1;
-//		#10 PENABLE = 1;
-//
-//		#40
-		
-		
-		
-		
-//		#100
-//		
-//		//to idle
-//		#10 PENABLE = 0;
-//		#10 PSELx = 0;
-		
-
-		
-		#8000; 
-		PADDR = 32'h80000000; PWDATA = 32'b0101010010101011001;
-		#5 PWRITE = 1;
-		#10 PSELx = 1;
-		#25 //penable csak kovetkezo ciklusban!
-		#10 PENABLE = 1;
-		#50
-
-		//to idle
-		#10 PENABLE = 0; PSELx = 0;		
-		
 	end
-		
-	
-	always begin
-		#25 PCLK = ~PCLK;
-	end
-      
       
 endmodule
 

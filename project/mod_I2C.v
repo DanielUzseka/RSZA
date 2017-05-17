@@ -1,28 +1,8 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    10:43:24 04/27/2017 
-// Design Name: 
-// Module Name:    mod_I2C 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 module mod_I2C(
 	inout 			SDA,		// I2C Data
 	output 			SCL,		// I2C clock
-	
-	//input [31:0]	command,
 	input [31:0]	dataIn,
 		//0: start
 		//1: reset
@@ -52,7 +32,7 @@ parameter [31:0] bRW 	= 3;
 parameter [31:0] bADDR 	= 10;
 parameter [31:0] bDATA 	= 18;
 parameter [31:0] bRDY	= 19;
-
+parameter [31:0] bERR	= 20;
 
 
 reg 		 [3:0]	states;
@@ -190,6 +170,7 @@ begin
 					begin
 						//error - no Ack
 						states <= IDLE;
+						regDataOut[bERR] <= 1;
 					end
 				end
 			end
@@ -272,12 +253,13 @@ begin
 					begin
 						byteCounter <= 0;
 						states <= STOP;
-						rSDA <= 0; //just for tests
+						rSDA <= 0; //if got ACK, pulling on SDA for release in STOP
 					end
 					else
 					begin
 						//error - no Ack
 						states <= IDLE;
+						regDataOut[bERR] <= 1;
 					end
 				end
 			end
@@ -324,6 +306,7 @@ begin
 				begin
 					rSDA <= 1;
 					states <= IDLE;
+					regDataOut[bERR] <= 0;
 				end
 			end
 		end
@@ -336,12 +319,7 @@ end
 pullup(SDA); //for simulation only!
 assign SDA = rSDA ? 1'bz : 1'b0;
 assign SCL = rSCL;
-//assign command = regCommand;
 
-//assign dataIn = regDataIn;
 assign dataOut = regDataOut;
-//assign SCL = rSCL ? 1'bz : 1'b0;
-// assign i2c_clk = (cnt == div);
-
 
 endmodule

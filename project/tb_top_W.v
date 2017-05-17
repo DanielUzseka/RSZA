@@ -1,27 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   15:16:11 05/17/2017
-// Design Name:   mod_top
-// Module Name:   /home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_W.v
-// Project Name:  HW
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: mod_top
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module tb_top_W;
 
 	// Inputs
@@ -53,6 +31,8 @@ module tb_top_W;
 		.SDA(SDA), 
 		.SCL(SCL)
 	);
+	
+	reg rSDA = 1'bz;
 
 	initial begin
 		// Initialize Inputs
@@ -73,10 +53,10 @@ module tb_top_W;
 		#10 PRESETn = 0;
 		#80 PRESETn = 1;
 		
-		// kezdocimre 1 beirasa
+		// helytelen cimre iras
 		// DATA | ADDR |R/W|Sp|R|S|
-		#40 PADDR = 32'h80000000; 
-		PWDATA[18:11] = 8'hF5; //data
+		#40 PADDR = 32'h70000000; 
+		PWDATA[18:11] = 8'h3D; //data
 		PWDATA[10:4] = 7'h60; // address
 		PWDATA[3] = 0; // write
 		PWDATA[2] = 0; // speed
@@ -89,8 +69,41 @@ module tb_top_W;
 		
 		//to idle
 		#60 PENABLE = 0; PSELx = 0;
+		
+		#200;
+		
+		// DATA | ADDR |R/W|Sp|R|S|
+		#40 PADDR = 32'h80000000; 
+		PWDATA[18:11] = 8'hF5; //data
+		PWDATA[10:4] = 7'h42; // address
+		PWDATA[3] = 0; // write
+		PWDATA[2] = 0; // speed
+		PWDATA[0] = 1; // start
+		
+		#5 PWRITE = 1; // AMBA write
+		#10 PSELx = 1;	// selecting
+		#25 //penable csak kovetkezo ciklusban!
+		#10 PENABLE = 1;  //enabling
+		
+		//to idle
+		#60 PENABLE = 0; PSELx = 0;
+		
+		#5288;
+		// addr ACK (for speed=0)
+		rSDA = 0;
+		# 600; 
+		rSDA = 'bz;
+		
+		#4797;
+		// data ACK (for speed=0)
+		rSDA = 0;
+		# 600; 
+		rSDA = 'bz;
+		
 
 	end
+	
+	assign SDA = rSDA;
 	
 	always begin
 		#25 PCLK = ~PCLK;

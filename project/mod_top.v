@@ -68,13 +68,10 @@ apb_mod inst_APB (
 mod_I2C inst_I2C (
     .SDA(SDA), 
     .SCL(SCL), 
-    //.command(command), 
-    //.address(address), 
     .dataIn(A2I),
 	 .dataOut(I2A),
     .clk(PCLK), 
     .rst(PRESETn) 
-    //.ready(ready)
     );
 	 
 endmodule

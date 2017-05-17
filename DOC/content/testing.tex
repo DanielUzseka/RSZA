@@ -11,7 +11,7 @@ A \figref{APBwrite} ábrán látható egy szimulációs hullámforma, amely a he
     \label{fig:APBwrite}
 \end{figure}
 
-A szimulációt tovább futtatva megfigyelhetünk egy rendben lezajló I2C írásmúveletet a \figref{I2Cwrite} ábrán. A szimulációhoz a slave felől érkező ACK jeleket kézzel, a szimulációs fájlokban szereplő módon adtuk ki, hogy igazolhassuk a modul megfelelő működését. A fájl természetesen megtalálható a függelékben, % TODO
+A szimulációt tovább futtatva megfigyelhetünk egy rendben lezajló I2C írásmúveletet a \figref{I2Cwrite} ábrán. A szimulációhoz a slave felől érkező ACK jeleket kézzel, a szimulációs fájlokban szereplő módon adtuk ki, hogy igazolhassuk a modul megfelelő működését. A fájl természetesen megtalálható az \ref{tbtopW} függelékben.
 A hullámforma egy byte-nyi 0xF5 adat 0x42 címre történő írását ábrázolja.
 \begin{figure}[ht!]
     \includegraphics[width=\textwidth]{figures/I2C_W2.png}
@@ -19,8 +19,8 @@ A hullámforma egy byte-nyi 0xF5 adat 0x42 címre történő írását ábrázol
     \label{fig:I2Cwrite}
 \end{figure}
 
-A következő, \figref{I2Cread} ábrán egy I2C olvasási ciklust szimuláltunk. Az ehhez tartozó szimulációs fájl szintén megtalálható a függelékben :
-Megfigyelhető egy lekérdezés az átvitel közben, de az olvasott adat ekkor \textbf{RDY} bit hiányában érvénytelen. Még egy APB olvasás látható a hullámformán, ezúttal már az átvtel lezajlása után, mikor is megfigyelhető az I2A, illetve a PRDATA buszokon az SDA vonalra kézzel felvezetett 0xC5 adat. 
+A következő, \figref{I2Cread} ábrán egy I2C olvasási ciklust szimuláltunk. Az ehhez tartozó szimulációs fájl szintén megtalálható a \ref{tbtopR} függelékben.
+Megfigyelhető egy lekérdezés az átvitel közben, de az olvasott adat ekkor \textbf{RDY} bit hiányában érvénytelen. Még egy APB olvasás látható a hullámformán, ezúttal már az átvtel lezajlása után, mikor is megfigyelhető az I2A, illetve a PRDATA buszokon az SDA vonalra kézzel felvezetett 0xC5 adat.
 \begin{figure}[ht!]
     \includegraphics[width=\textwidth]{figures/I2C_R4.png}
     \caption{I2C olvasás ciklus}

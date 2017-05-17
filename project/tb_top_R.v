@@ -1,27 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   15:39:51 05/17/2017
-// Design Name:   mod_top
-// Module Name:   /home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_R.v
-// Project Name:  HW
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: mod_top
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module tb_top_R;
 
 	// Inputs
@@ -55,7 +33,6 @@ module tb_top_R;
 	);
 	
 	reg rSDA = 1'bz;
-
 
 	initial begin
 		// Initialize Inputs
@@ -124,8 +101,6 @@ module tb_top_R;
 		# 400 rSDA = 0; // 0
 		# 400 rSDA = 'bz; // 1
 
-		
-		
 		
 		// polling peripheral
 		# 1250;

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_W_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_top_W" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="18" />
+   <wvobject fp_name="/tb_top_W/PCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCLK</obj_property>
+      <obj_property name="ObjectShortName">PCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PRESETn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PRESETn</obj_property>
+      <obj_property name="ObjectShortName">PRESETn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PADDR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PADDR[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PWRITE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PWRITE</obj_property>
+      <obj_property name="ObjectShortName">PWRITE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PSELx" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PSELx</obj_property>
+      <obj_property name="ObjectShortName">PSELx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PENABLE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PENABLE</obj_property>
+      <obj_property name="ObjectShortName">PENABLE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PWDATA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PWDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PWDATA[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus61" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_D</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[18]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[18]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[18]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[17]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[17]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[17]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[16]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[16]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[16]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[15]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[15]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[14]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[14]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[13]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[13]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[12]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[12]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[11]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[11]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus53" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_A</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[10]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[10]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[9]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[9]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[8]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[8]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[7]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[7]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[6]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[6]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[5]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[5]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top_W/PWDATA[4]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[4]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus51" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_R/W</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[3]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[3]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus49" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_Sp</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[2]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[2]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus47" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_R</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[1]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[1]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus45" type="vbus" db_ref_id="1">
+      <obj_property name="label">PWDATA_S</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_top_W/PWDATA[0]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">PWDATA[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/uut/I2A" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">I2A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">I2A[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/uut/A2I" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">A2I[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A2I[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/PRDATA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">PRDATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PRDATA[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/SCL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SCL</obj_property>
+      <obj_property name="ObjectShortName">SCL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top_W/SDA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SDA</obj_property>
+      <obj_property name="ObjectShortName">SDA</obj_property>
+   </wvobject>
+</wave_config>

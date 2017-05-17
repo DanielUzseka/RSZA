@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_W_isim_beh.exe" -prj "/home/kristofkalocsai/School/SYSARCH/HW/RSZA/project/tb_top_W_beh.prj" "work.tb_top_W" "work.glbl" 
