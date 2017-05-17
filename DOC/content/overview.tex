@@ -51,8 +51,6 @@ Az I2C modul a rendelkezésére bocsátott adatokból lefolytatja soros kommunik
 
 A továbbiakban tekintsük át részletesebben az almodulok felépítését. A modulokhoz, és a későbbiekben a tesztekhez kapcsolódó forráskódok a dokumentum végén, a függelékben találhatóak.
 
-\section{mod\_top}
-
 \section{mod\_apb}
 \subsubsection{Ki és bemenetek}
 Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek a busz jeleivel, eltekintve a PREADY és PSLVERR jelektől, melyeket nem használunk. Továbbá tartalmaz két darab 32 bites ki illetve bemeneti portot, amely tartalmazza az I2C modul számára küldött, illetve attól fogadott összes releváns adatot. A pontos tartalmat lásd az I2C modul tárgyalásánál.
@@ -82,8 +80,9 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
         \centering
         \begin{tikzpicture}[scale=0.8]
             \bitrect{16}{32-\bit}
-            \robits{0}{13}{}
-            %\robits{12}{1}{RDY}
+            \robits{0}{11}{}
+            \robits{11}{1}{ERR}
+            \robits{12}{1}{RDY}
             \rwbits{13}{3}{DATA [0:2]}
         \end{tikzpicture}\\[2ex]
         \begin{tikzpicture}[scale=0.8]
@@ -152,4 +151,4 @@ Mivel ez a modul közvetlenül az APB buszra csatlakozik, bemenetei megegyeznek 
     \label{fig:statemachine}
 \end{figure}
 \subsubsection{Logika}
-A modul állapotátmenetei, és mechanizmusa látható a \figref{statemachine} ábrán. A \figref{reg} ábrán látható start bit (\textbf{S}) 1 értékbe állításakor elindul a soros kommunikáció. A sebességet tároló bit (\textbf{Sp}) 1-re állításával az I2C kommunikácó órajele 400 kHz-es, míg 0-ra állításával 100 kHz-es frekvenciával rendelkezik. Az írás/olvasás bit (\textbf{R/W}) 1 értéke esetén a perifériától való olvasás valósul meg, míg fordított esetben ennek az ellenkezője. 
+A modul állapotátmenetei, és mechanizmusa látható a \figref{statemachine} ábrán. A \figref{reg} ábrán látható start bit (\textbf{S}) 1 értékbe állításakor elindul a soros kommunikáció. A sebességet tároló bit (\textbf{Sp}) 1-re állításával az I2C kommunikácó órajele 400 kHz-es, míg 0-ra állításával 100 kHz-es frekvenciával rendelkezik. Az írás/olvasás bit (\textbf{R/W}) 1 értéke esetén a perifériától való olvasás valósul meg, míg fordított esetben ennek az ellenkezője. Amint a kommunikáció elindul, a modul a készenlét jelzőbitjét (\textbf{RDY}) 0-ra állítja, ezzel jelezve, (ha a felhasználó lekérdezi, kiolvassa az APB buszon keresztül) hogy átvitel van folyamatban. Hasonlóképpen, ha hiba történik az átvitelben (nem érkezik ACK jel), azt az \textbf{ERR} bittel jelzi a modul.
